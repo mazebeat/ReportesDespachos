@@ -39,22 +39,22 @@
                         <tr>
                             <td>Documento 1.txt</td>
                             <td>11/2014</td>
-                            <td><a href="" class="btn btn-link"><i class="fa fa-cloud-download"> Descargar</i></a></td>
+                            <td><a href="" class="btn btn-default"><i class="fa fa-download"> Descargar</i></a></td>
                         </tr>
                         <tr>
                             <td>Documento 2.txt</td>
                             <td>10/2014</td>
-                            <td><a href="" class="btn btn-link"><i class="fa fa-cloud-download"> Descargar</i></a></td>
+                            <td><a href="" class="btn btn-default"><i class="fa fa-download"> Descargar</i></a></td>
                         </tr>
                         <tr>
                             <td>Documento 3.txt</td>
                             <td>09/2014</td>
-                            <td><a href="" class="btn btn-link"><i class="fa fa-cloud-download"> Descargar</i></a></td>
+                            <td><a href="" class="btn btn-default"><i class="fa fa-download"> Descargar</i></a></td>
                         </tr>
                         <tr>
                             <td>Documento 4.txt</td>
                             <td>08/2014</td>
-                            <td><a href="" class="btn btn-link"><i class="fa fa-cloud-download"> Descargar</i></a></td>
+                            <td><a href="" class="btn btn-default"><i class="fa fa-download"> Descargar</i></a></td>
                         </tr>
                     </tbody>
                 </table>
