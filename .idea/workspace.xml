@@ -1,34 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9da33ae7-801d-4290-ba7e-012577b66d96" name="Default" comment="1.0.0">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/database/GeneradocumentoDetalleReenvios_ex1.sql" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/database/GeneradocumentoObtenerDetalleRedespacho_ex1.sql" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/database/GeneradocumentoObtenerDetalle_ex1.sql" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/angular-cookies.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/angular-locale_es-cl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/angular.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
-      <change type="DELETED" beforePath="F:\PhpstormProjects\reporte_despacho\app\app.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/AdminController.php" afterPath="$PROJECT_DIR$/app/controllers/AdminController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/ApiController.php" afterPath="$PROJECT_DIR$/app/controllers/ApiController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/BusquedaController.php" afterPath="$PROJECT_DIR$/app/controllers/BusquedaController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/utils/Functions.php" afterPath="$PROJECT_DIR$/app/utils/Functions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/ReportesController.php" afterPath="$PROJECT_DIR$/app/controllers/ReportesController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/ResumenController.php" afterPath="$PROJECT_DIR$/app/controllers/ResumenController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/angularjs.blade.php" afterPath="$PROJECT_DIR$/app/views/layouts/angularjs.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/controllers.js" afterPath="$PROJECT_DIR$/public/js/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/resumenes/despacho.blade.php" afterPath="$PROJECT_DIR$/app/views/resumenes/despacho.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/reportes/despachos.blade.php" afterPath="$PROJECT_DIR$/app/views/reportes/despachos.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/resumenes/emessaging.blade.php" afterPath="$PROJECT_DIR$/app/views/resumenes/emessaging.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/factories.js" afterPath="$PROJECT_DIR$/public/js/factories.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/despachos/index.blade.php" afterPath="$PROJECT_DIR$/app/views/despachos/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/busquedas/individual.blade.php" afterPath="$PROJECT_DIR$/app/views/busquedas/individual.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/ladda/dist/ladda.min.css" afterPath="$PROJECT_DIR$/public/js/ladda/dist/ladda.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/master.blade.php" afterPath="$PROJECT_DIR$/app/views/layouts/master.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/master_modules/menu.blade.php" afterPath="$PROJECT_DIR$/app/views/layouts/master_modules/menu.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/reportes/reporte.blade.php" afterPath="$PROJECT_DIR$/app/views/reportes/reporte.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes.php" afterPath="$PROJECT_DIR$/app/routes.php" />
+    <list default="true" id="9da33ae7-801d-4290-ba7e-012577b66d96" name="Default" comment="1.0.3">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="code.iws" />
@@ -111,7 +84,7 @@
       <file leaf-file-name="ReportesController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/ReportesController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.307693" vertical-offset="1650" max-vertical-offset="3850">
+            <state vertical-scroll-proportion="-9.307693" vertical-offset="1650" max-vertical-offset="3630">
               <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
               <folding>
                 <element signature="e#7#30#0#PHP" expanded="true" />
@@ -124,11 +97,11 @@
       <file leaf-file-name="routes.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/routes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45" vertical-offset="344" max-vertical-offset="990">
-              <caret line="23" column="53" selection-start-line="23" selection-start-column="53" selection-end-line="23" selection-end-column="53" />
+            <state vertical-scroll-proportion="1.4277778" vertical-offset="344" max-vertical-offset="990">
+              <caret line="65" column="3" selection-start-line="65" selection-start-column="3" selection-end-line="65" selection-end-column="3" />
               <folding>
-                <element signature="e#570#670#1#PHP" expanded="true" />
-                <element signature="e#714#2295#1#PHP" expanded="true" />
+                <element signature="e#573#673#1#PHP" expanded="true" />
+                <element signature="e#717#2298#1#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -203,7 +176,6 @@
         <option value="$PROJECT_DIR$/app/views/busquedas/individual.blade.php" />
         <option value="dbfunction:/b3ef777e/d3271772-f4d4-493f-aff2-282ffe389365/ReportesDespachos.dbo.ObtenerResumen_ex1" />
         <option value="$PROJECT_DIR$/public/js/factories.js" />
-        <option value="$PROJECT_DIR$/app/routes.php" />
         <option value="$PROJECT_DIR$/app/views/despachos/index.blade.php" />
         <option value="$PROJECT_DIR$/app/views/layouts/angularjs.blade.php" />
         <option value="$PROJECT_DIR$/app/views/layouts/master.blade.php" />
@@ -216,6 +188,7 @@
         <option value="$PROJECT_DIR$/app/views/reportes/reporte.blade.php" />
         <option value="db-console:/b3ef777e/d3271772-f4d4-493f-aff2-282ffe389365/" />
         <option value="$PROJECT_DIR$/app/controllers/ReportesController.php" />
+        <option value="$PROJECT_DIR$/app/routes.php" />
       </list>
     </option>
   </component>
@@ -393,7 +366,13 @@
       <option name="project" value="LOCAL" />
       <updated>1421446144420</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="1.0.3">
+      <created>1417457986193</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1417457986193</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -421,6 +400,7 @@
     <editor active="false" />
     <layout>
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51960784" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32352942" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.08660131" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34313726" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -431,14 +411,13 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21709532" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32352942" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="PMIP" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2137031" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39869282" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -490,7 +469,8 @@
     <MESSAGE value="0.0.3" />
     <MESSAGE value="1.0.0" />
     <MESSAGE value="1.0.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.0.1" />
+    <MESSAGE value="1.0.3" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.0.3" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -779,10 +759,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6226">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
-            <marker date="1417454189890" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1417454189890" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1417454189890" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1417454189890" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1417457970233" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1417457970233" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1417457970233" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1417457970233" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -823,7 +803,7 @@
             <element signature="e#148#260#0#PHP" expanded="true" />
             <element signature="e#528#1004#0#PHP" expanded="true" />
             <element signature="e#1070#1544#0#PHP" expanded="true" />
-            <element signature="e#7195#7837#0#PHP" expanded="true" />
+            <element signature="e#7216#7858#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -882,11 +862,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/routes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45" vertical-offset="344" max-vertical-offset="990">
-          <caret line="23" column="53" selection-start-line="23" selection-start-column="53" selection-end-line="23" selection-end-column="53" />
+        <state vertical-scroll-proportion="1.4277778" vertical-offset="344" max-vertical-offset="990">
+          <caret line="65" column="3" selection-start-line="65" selection-start-column="3" selection-end-line="65" selection-end-column="3" />
           <folding>
-            <element signature="e#570#670#1#PHP" expanded="true" />
-            <element signature="e#714#2295#1#PHP" expanded="true" />
+            <element signature="e#573#673#1#PHP" expanded="true" />
+            <element signature="e#717#2298#1#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
