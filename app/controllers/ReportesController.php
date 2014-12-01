@@ -14,6 +14,9 @@ class ReportesController extends \ApiController
 		$this->root    = public_path() . '/reportes/' . Auth::user()->idUsuario . '/';
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public function reporte()
 	{
 		$files = $this->list_files($this->root);
@@ -30,12 +33,10 @@ class ReportesController extends \ApiController
 	 */
 	public function procesa_reporte()
 	{
-		//  Se  crea carpeta
 		if (!File::exists($this->root)) {
 			File::makeDirectory($this->root);
 		}
 
-		// Valida campos
 		if (str_contains(Str::lower(Input::get('negocio')), 'despacho ')) {
 			$rules = array('negocio' => 'required', 'fecha' => 'required', 'ciclo' => 'required');
 		} else {
@@ -48,93 +49,71 @@ class ReportesController extends \ApiController
 			return Redirect::back()->withErrors($validator)->withInput(Input::except(array('_token')));
 		}
 
-		// Obtiene campos
-		$negocio = Str::upper(Input::get('negocio'));
-		$fecha   = new Carbon(Input::get('fecha'));
-		$fecini  = new Carbon($fecha);
-		$fecini  = $fecini->startOfMonth();
-		$fecfin  = new Carbon($fecha);
-		$fecfin  = $fecfin->endOfMonth();
-		$ciclo   = Input::get('ciclo');
-
-		$name     = $negocio . Input::get('fecha') . $ciclo;
-		$nameFile = $negocio . '_' . Input::get('fecha') . '_' . $ciclo;
+		$negocio            = Str::upper(Input::get('negocio'));
+		$fecha              = new Carbon(Input::get('fecha'));
+		$fecini             = new Carbon($fecha);
+		$fecini             = $fecini->startOfMonth()->format('Ymd');
+		$fecfin             = new Carbon($fecha);
+		$fecfin             = $fecfin->endOfMonth()->format('Ymd');
+		$ciclo              = Input::get('ciclo');
+		$instancia          = 'DUF2409\INST1';
+		$name               = $negocio . Input::get('fecha') . $ciclo;
+		$nameFile           = $negocio . '_' . Input::get('fecha') . '_' . $ciclo;
+		$fileLocation       = $this->root . $nameFile . '.txt';
 
 		if (!Cache::has($name)) {
 			switch (Str::lower($negocio)) {
 				case 'despacho fija':
 					$negocio = 'FIJA';
-					$query   = "EXEC dbo.ObtenerDetalle_ex1 '%s', %s, %s, %s";
-					$query   = sprintf($query, $negocio, $ciclo, $fecha->month, $fecha->year);
+					$spname = 'ReportesDespachos.dbo.ObtenerDetalle_ex1';
+					$sql    = app_path('database/Generadocumento' . 'ObtenerDetalle_ex1.sql');
+					$cmd    = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -v negocio="' . $negocio . '" ciclo="' . $ciclo . '" mes="' . $fecha->month . '" ano="' . $fecha->year . '" spname=' . $spname;
 					break;
 				case 'despacho movil':
 					$negocio = 'MOVIL';
-					$query   = "EXEC dbo.ObtenerDetalle_ex1 '%s', %s, %s, %s";
+					$spname = 'ReportesDespachos.dbo.ObtenerDetalle_ex1';
+					$sql    = app_path('database/Generadocumento' . 'ObtenerDetalle_ex1.sql');
 					$ciclo   = Input::get('ciclo') . explode('-', $fecha)[1] . substr(explode('-', $fecha)[0], -2);
-					$query   = sprintf($query, $negocio, $ciclo, $fecha->month, $fecha->year);
+					$cmd    = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -v negocio="' . $negocio . '" ciclo="' . $ciclo . '" mes="' . $fecha->month . '" ano="' . $fecha->year . '" spname=' . $spname;
 					break;
 				case 're-despacho':
-					$query = "EXEC dbo.ObtenerDetalleRedespacho_ex1 '%s', '%s'";
-					$query = sprintf($query, $fecini, $fecfin);
+					$negocio = 'FIJA';
+					$spname  = 'ReportesDespachos.dbo.ObtenerDetalleRedespacho_ex1';
+					$sql     = app_path('database/Generadocumento' . 'ObtenerDetalleRedespacho_ex1.sql');
+					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -v fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
 					break;
 				case 're-envio fija':
 					$negocio = '1';
-					$query   = "EXEC dbo.DetalleReenvios_ex1 '%s', '%s', '%s'";
-					$query   = sprintf($query, $negocio, $fecini, $fecfin);
+					$spname = 'ReportesDespachos.dbo.DetalleReenvios_ex1';
+					$sql    = app_path('database/Generadocumento' . 'DetalleReenvios_ex1.sql');
+					$cmd    = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -v negocio="' . $negocio . '" fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
 					break;
 				case 're-envio movil':
 					$negocio = '2';
-					$query   = "EXEC dbo.DetalleReenvios_ex1 '%s', '%s', '%s'";
-					$query   = sprintf($query, $negocio, $fecini, $fecfin);
+					$spname = 'ReportesDespachos.dbo.DetalleReenvios_ex1';
+					$sql    = app_path('database/Generadocumento' . 'DetalleReenvios_ex1.sql');
+					$cmd    = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -v negocio="' . $negocio . '" fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
 					break;
 			}
 		}
 
-		$fileLocation = $this->root . $nameFile . '.txt';
-
 		if (!File::exists($this->root . $nameFile . '.zip')) {
-
-			try {
-				$conn = new PDO('sqlsrv:server=10.185.30.243\INST1;Database=ReportesDespachos;MultipleActiveResultSets=false', 'emessuser', 'emessuser2013');
-				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$conn->setAttribute(constant('PDO::SQLSRV_ATTR_DIRECT_QUERY'), true);
-			} catch (Exception $e) {
-				die(print_r($e->getMessage()));
-			}
-			$stmt = $conn->prepare($query);
-			$stmt->execute();
-
-			$i = 0;
-			while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-				if ($i == 0) {
-					$titles = '';
-					$count  = count($row);
-					foreach (array_keys($row) as $key => $value) {
-						$titles .= $value;
-						if ($key + 1 != $count) {
-							$titles .= ';';
+			shell_exec($cmd);
+			if (Functions::delLineFromFile($fileLocation, 2)) {
+				if (File::exists($fileLocation)) {
+					if (!File::exists($this->root . $nameFile . '.zip')) {
+						$zip = new ZipArchive();
+						if ($zip->open($this->root . $nameFile . '.zip', ZIPARCHIVE::CREATE) === true) {
+							$zip->addFile($fileLocation, $nameFile . '.txt');
+							$zip->close();
+							$result = true;
+						} else {
+							$result = false;
 						}
-					}
-					File::append($fileLocation, $titles . PHP_EOL);
-					$i++;
-					continue;
-				}
-				File::append($fileLocation, Functions::array_2_csv($row));
-			}
 
-			if (File::exists($fileLocation)) {
-				if (!File::exists($this->root . $nameFile . '.zip')) {
-					$zip = new ZipArchive();
-					if ($zip->open($this->root . $nameFile . '.zip', ZIPARCHIVE::CREATE) === true) {
-						$zip->addFile($fileLocation, $nameFile . '.txt');
-						$zip->close();
-						$result = true;
-					} else {
-						$result = false;
-					}
-
-					if ($result) {
-						unlink($fileLocation);
+						if ($result) {
+							unlink($fileLocation);
+						}
 					}
 				}
 			}
@@ -152,9 +131,12 @@ class ReportesController extends \ApiController
 
 		$files = $this->list_files($this->root);
 
-		return View::make('reportes.reporte')->with('files', $files)->with('message', $this->message);
+		return View::make('reportes.reporte')->with('files', $files)->with('message', $this->message)->withInput(Input::except(array('_token')));;
 	}
 
+	/**
+	 * @return mixeds
+	 */
 	public function estado_despacho()
 	{
 		$fecha = Carbon::now();

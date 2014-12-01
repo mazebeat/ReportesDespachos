@@ -10,9 +10,11 @@
     <link rel="shortcut icon" href="/favicon.png" type="image/png">
     <title>@yield('title')</title>
     @yield('file-style')
+    {{ HTML::style('js/ladda/dist/ladda.min.css') }}
+
     {{ HTML::style('css/style.css') }}
     {{ HTML::style('css/style_responsive.css') }}
-    {{ HTML::style('js/ladda/dist/ladda.min.css') }}
+
     {{ HTML::script('js/modernizr.min.js') }}
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -49,9 +51,13 @@
     {{ HTML::script('js/bootstrap.min.js') }}
     {{ HTML::script('js/ladda/dist/spin.min.js') }}
     {{ HTML::script('js/ladda/dist/ladda.min.js') }}
+
     @yield('file-script')
+
     @include('layouts.angularjs')
+
     {{ HTML::script('js/scripts.js') }}
+
     @yield('text-script')
 </body>
 </html>

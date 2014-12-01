@@ -16,7 +16,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="{{ HTML::activeLink('admin') }}"><a href="{{ URL::to('dashboard') }}"><i
+                <li class="{{ HTML::activeLink('admin') }}"><a href="{{ URL::to('admin') }}"><i
                                 class="fa fa-home fa-fw"></i> Inicio</a></li>
                 <li class="dropdown {{ HTML::activeState(array('admin/resumen/despachos', 'admin/resumen/emessaging')) }}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-list-ul fa-fw"></i>

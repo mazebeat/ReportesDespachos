@@ -47,7 +47,7 @@ class BusquedaController extends \ApiController
 
 		$message = $this->get_message($sql);
 
-		return View::make('busquedas.individual')->with('sql', $sql)->with('message', $message);
+		return View::make('busquedas.individual')->with('sql', $sql)->with('message', $message)->withInput(Input::except(array('_token')));
 
 	}
 }

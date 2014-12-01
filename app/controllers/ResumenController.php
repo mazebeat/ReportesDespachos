@@ -14,9 +14,7 @@ class ResumenController extends \ApiController
 
 	public function procesa_despacho()
 	{
-		$rules = array('negocio' => 'required',
-		               'fecha'   => 'required',
-		               'ciclo'   => 'required');
+		$rules = array('negocio' => 'required', 'fecha' => 'required');
 
 		$validator = Validator::make(Input::all(), $rules);
 
@@ -29,11 +27,10 @@ class ResumenController extends \ApiController
 		$mes     = $fecha[1];
 		$año     = substr($fecha[0], -2);
 		$fecha   = $mes . $año;
+		$ciclo = Input::get('ciclo');
 
-		if ($negocio === Str::upper('movil')) {
-			$ciclo = Input::get('ciclo') . $fecha;
-		} else {
-			$ciclo = Input::get('ciclo');
+		if ($ciclo != '' && $negocio === Str::upper('movil')) {
+			$ciclo = $ciclo . $fecha;
 		}
 
 		$name = $negocio . $fecha . $ciclo;
@@ -41,13 +38,19 @@ class ResumenController extends \ApiController
 		if (Cache::has($name)) {
 			$sql = Cache::get($name);
 		} else {
-			$query = "EXEC ObtenerResumen_ex1 '%s',%u,%u,'%s'";
-			$query = sprintf($query, $negocio, $mes, $año, $ciclo);
-			$sql   = $this->store_query_cache($name, $query);
+			if (empty($ciclo)) {
+				$query = "EXEC ObtenerResumen_ex1 '%s', %u, %u, NULL";
+				$query = sprintf($query, $negocio, $mes, $año);
+			} else {
+				$query = "EXEC ObtenerResumen_ex1 '%s', %u, %u, '%s'";
+				$query = sprintf($query, $negocio, $mes, $año, $ciclo);
+			}
+			$sql = $this->store_query_cache($name, $query);
 		}
+
 		$message = $this->get_message($sql);
 
-		return View::make('resumenes.despacho')->with('sql', $sql)->with('message', $message);
+		return View::make('resumenes.despacho')->with('sql', $sql)->with('message', $message)->withInput(Input::except(array('_token')));;
 	}
 
 	public function emessaging()
@@ -57,9 +60,7 @@ class ResumenController extends \ApiController
 
 	public function procesa_emessaging()
 	{
-		$rules = array('negocio'     => 'required',
-		               'fecha_desde' => 'required',
-		               'fecha_hasta' => 'required|after:' . Input::get('fecha_desde'));
+		$rules = array('negocio' => 'required', 'fecha_desde' => 'required', 'fecha_hasta' => 'required|after:' . Input::get('fecha_desde'));
 
 		$validator = Validator::make(Input::all(), $rules);
 
@@ -90,6 +91,6 @@ class ResumenController extends \ApiController
 
 		$message = $this->get_message($sql);
 
-		return View::make('resumenes.emessaging')->with('sql', $sql)->with('message', $message);
+		return View::make('resumenes.emessaging')->with('sql', $sql)->with('message', $message)->withInput(Input::except(array('_token')));;
 	}
 }

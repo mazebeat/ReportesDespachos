@@ -119,6 +119,6 @@
 
 @section('text-script')
 <script>
-    Ladda.bind('button', {timeout: 2000});
+    Ladda.bind('button');
 </script>
 @endsection

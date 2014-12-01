@@ -106,7 +106,7 @@ reportesDespacho.service('chartService', ['rootFactory', '$http', '$window', fun
     };
 
     this.sort = function (array) {
-       var array = array.sort(function (a, b) {
+        var array = array.sort(function (a, b) {
             return a.item.localeCompare(b.item);
         });
         //console.log(array);
@@ -315,6 +315,7 @@ reportesDespacho.service('chartService', ['rootFactory', '$http', '$window', fun
         legend.markerType = "circle";
         legend.valueText = "";
         legend.useGraphSettings = false;
+        legend.position = "left";
 
         if (!text) {
             legend.labelTexto = "[[title]]";
@@ -330,7 +331,7 @@ reportesDespacho.service('chartService', ['rootFactory', '$http', '$window', fun
     };
 
     this.margin = function (chart) {
-        chart.autoMargins = false;
+        chart.autoMargins = true;
         chart.marginRight = 10;
         chart.marginLeft = 80;
         chart.marginBottom = 20;

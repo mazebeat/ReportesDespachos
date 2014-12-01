@@ -39,9 +39,10 @@
 						{{--{{ Form::select('ciclo', array(), Input::old('ciclo'), array('class' => 'form-control ciclo'))  }}--}}
 						<small class="help-block">{{ $errors->first('ciclo') }}</small>
 					</div>
-					<div class="form-group col-xs-1 col-md-1" style="margin-top: 24px;">
+					<div class="form-group col-xs-1 col-md-1 col-lg-1" style="margin-top: 24px;">
 						{{ Form::label('consultar', 'Consultar', array('class' => 'control-label sr-only' )) }}
-						<button type="submit" class="btn btn-default ladda-button" data-style="zoom-in">Consultar</button>
+						<button type="submit" class=" ladda-button btn btn-primary" data-style="zoom-in">Consultar
+						</button>
 					</div>
 				</div>
 				{{ Form::close() }}

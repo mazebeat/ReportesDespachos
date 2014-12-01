@@ -3,6 +3,19 @@
 
 class ApiController extends \BaseController
 {
+
+	public function __construct()
+	{
+		$sp_anual         = "EXEC dbo.BuscaDataResumen_Anual '%s','%s'";
+		$sp_mensual       = "EXEC dbo.BuscaDataResumen_Mensual '%s','%s'";
+		$sp_gAnual        = "EXEC dbo.BuscaDataResumen_GraficoAnual '%s','%s'";
+		$sp_gMensualFija  = "EXEC dbo.BuscaDataResumen_GraficoMensualFija '%s','%s'";
+		$sp_gMensualMovil = "EXEC dbo.BuscaDataResumen_GraficoMensualMovil '%s','%s'";
+		$sp_busqueda      = "EXEC busquedaIndividual_ex1 '%s', %s, %s, %s, %s";
+		$sp_despacho      = "EXEC ObtenerResumen_ex1 '%s',%u,%u,'%s'";
+		$sp_emmessagin    = "EXEC obc.REPORTEESTADODESPACHO_EX1 '%s','%s'";
+	}
+
 	public function validate($rules, $except = array('_token'))
 	{
 		$root = \Request::path();

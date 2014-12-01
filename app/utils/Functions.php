@@ -32,6 +32,40 @@ class Functions
 	}
 
 	/**
+	 * @param int $number
+	 *
+	 * @return array|mixed|string
+	 */
+	public static function convNumberToMonth($number = 0)
+	{
+		// Array with number => month
+		$month = array('1' => 'enero', '2' => 'febrero', '3' => 'marzo', '4' => 'abril', '5' => 'mayo', '6' => 'junio', '7' => 'julio', '8' => 'agosto', '9' => 'septiembre', '10' => 'octubre', '11' => 'noviembre', '12' => 'diciembre');
+		// Get Month name into array
+		$month = array_get($month, $number, '');
+		// Convert name to CamelCase
+		$month = studly_case($month);
+
+		return $month;
+	}
+
+	/**
+	 * @param string $month
+	 *
+	 * @return array|mixed
+	 */
+	public static function convMonthToNumber($month = '')
+	{
+		// Array with month => number
+		$number = array('enero' => '1', 'febrero' => '2', 'marzo' => '3', 'abril' => '4', 'mayo' => '5', 'junio' => '6', 'julio' => '7', 'agosto' => '8', 'septiembre' => '9', 'octubre' => '10', 'noviembre' => '11', 'diciembre' => '12');
+		// Convert name to lower case
+		$month = Str::lower($month);
+		// Get number into array
+		$number = array_get($number, $month, 0);
+
+		return $number;
+	}
+
+	/**
 	 * @param $array
 	 *
 	 * @return string
@@ -230,4 +264,49 @@ class Functions
 
 		return $data;
 	}
+
+	/**
+	 * Elimino una linea de un archivo dado
+	 *
+	 * @param    string  $fileName
+	 * @param    integer $lineNum
+	 *
+	 * @return    bool
+	 */
+	public static function delLineFromFile($fileName, $lineNum)
+	{
+		if (!is_writable($fileName)) {
+			print "The file $fileName is not writable";
+
+			return false;
+		} else {
+			$arr = file($fileName);
+		}
+
+		$lineToDelete = $lineNum - 1;
+
+		if ($lineToDelete > sizeof($arr)) {
+			print "You have chosen a line number, <b>[$lineNum]</b>,  higher than the length of the file.";
+
+			return false;
+		}
+
+		unset($arr["$lineToDelete"]);
+
+		if (!$fp = fopen($fileName, 'w+')) {
+			print "Cannot open file ($fileName)";
+
+			return false;
+		}
+
+		if ($fp) {
+			foreach ($arr as $line) {
+				fwrite($fp, $line);
+			}
+			fclose($fp);
+		}
+
+		return true;
+	}
+
 }

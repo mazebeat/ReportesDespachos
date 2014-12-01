@@ -1,7 +1,9 @@
 <?php
+
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', '1024M');
 error_reporting(E_ALL);
+setlocale(LC_ALL, "es_ES.UTF-8", "Esp", "Es");
 
 /*
 |--------------------------------------------------------------------------
@@ -58,4 +60,7 @@ Route::group(array('before' => 'auth'), function () {
 	});
 	//	logout method
 	Route::get('logout', 'HomeController@logout');
+});
+
+Route::get('test', function () {
 });

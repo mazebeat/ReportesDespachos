@@ -56,5 +56,6 @@
 
 @section('text-script')
 <script>
+	Ladda.bind('button');
 </script>
 @endsection

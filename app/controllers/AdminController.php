@@ -60,12 +60,12 @@ class AdminController extends \ApiController
 	public function anual()
 	{
 		$this->name = 'anual' . $this->mes . $this->año;
-		if (!Cache::has($this->name)) {
+		if (Cache::has($this->name)) {
 			$this->data['data'] = Cache::get($this->name);
 		} else {
 			$this->query = "EXEC dbo.BuscaDataResumen_Anual '%s','%s'";
 			$this->replaceQuery();
-			$this->data['data'] = $this->store_query_cache($this->name, $this->query, 500);
+			$this->data['data'] = $this->store_query_cache($this->name, $this->query, 5);
 		}
 		$this->getMessage();
 
@@ -105,7 +105,7 @@ class AdminController extends \ApiController
 		} else {
 			$this->query = "EXEC dbo.BuscaDataResumen_Mensual '%s','%s'";
 			$this->replaceQuery();
-			$this->data['data'] = $this->store_query_cache($this->name, $this->query, 500);
+			$this->data['data'] = $this->store_query_cache($this->name, $this->query, 5);
 		}
 		$this->getMessage();
 
@@ -123,11 +123,9 @@ class AdminController extends \ApiController
 		} else {
 			$this->query = "EXEC dbo.BuscaDataResumen_GraficoAnual '%s','%s'";
 			$this->replaceQuery();
-			$this->data['data'] = $this->store_query_cache($this->name, $this->query, 500);
+			$this->data['data'] = $this->store_query_cache($this->name, $this->query, 5);
 		}
 		$this->getMessage();
-
-		//		dd($this->query);
 
 		return \Response::json($this->data, $this->status, $this->headers);
 	}
@@ -143,7 +141,7 @@ class AdminController extends \ApiController
 		} else {
 			$this->query = "EXEC dbo.BuscaDataResumen_GraficoMensualFija '%s','%s'";
 			$this->replaceQuery();
-			$this->data['data'] = $this->store_query_cache($this->name, $this->query, 500);
+			$this->data['data'] = $this->store_query_cache($this->name, $this->query, 5);
 		}
 		$this->getMessage();
 
@@ -161,10 +159,11 @@ class AdminController extends \ApiController
 		} else {
 			$this->query = "EXEC dbo.BuscaDataResumen_GraficoMensualMovil '%s','%s'";
 			$this->replaceQuery();
-			$this->data['data'] = $this->store_query_cache($this->name, $this->query, 500);
+			$this->data['data'] = $this->store_query_cache($this->name, $this->query, 5);
 		}
 		$this->getMessage();
 
 		return \Response::json($this->data, $this->status, $this->headers);
 	}
+
 }

@@ -1,6 +1,6 @@
 {{-- AngularJS --}}
-{{ HTML::script('http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js') }}
-{{ HTML::script('https://code.angularjs.org/1.2.26/i18n/angular-locale_es-cl.js') }}
+{{ HTML::script('js/angularJS/angular.min.js') }}
+{{ HTML::script('js/angularJS/i18n/angular-locale_es-cl.js') }}
 {{-- Main app --}}
 {{ HTML::script('js/app.js') }}
 {{-- Factory root --}}

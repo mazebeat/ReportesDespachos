@@ -45,66 +45,115 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
             }
         });
 
+    $scope.serialChart = function (data) {
+        var arreglo = [], config = [], campañas = [], temp = [], fecha = '', id = '', negocio = '';
+        angular.forEach(data, function (v, k) {
+            fecha = v.fecha;
+            id = fecha.replace('/', '');
+
+            if (v.hasOwnProperty('fecha')) {
+                negocio = v.negocio;
+            }
+
+            campañas.push(negocio);
+
+            if (arreglo.hasOwnProperty(id)) {
+                arreglo[id][v.negocio] = v.total;
+            } else {
+                arreglo[id] = {'fecha': '01/' + fecha};
+                arreglo[id][v.negocio] = v.total;
+            }
+        });
+
+        arreglo.forEach(function (elemento) {
+            if (elemento != null) {
+                temp.push(elemento);
+            }
+        });
+        config['data'] = temp;
+        config['graphs'] = $scope.unique(campañas);
+        return config;
+    };
+
+    $scope.unique = function (origArr) {
+        var newArr = [],
+            origLen = origArr.length,
+            found, x, y;
+
+        for (x = 0; x < origLen; x++) {
+            found = undefined;
+            for (y = 0; y < newArr.length; y++) {
+                if (origArr[x] === newArr[y]) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                newArr.push(origArr[x]);
+            }
+        }
+        return newArr;
+    };
+
     $http.get('gAnual')
         .success(function (data) {
             if (data.ok) {
                 $scope.error = true;
                 $scope.message = '';
 
-                var dataTemp = [];
-                var keyTemp = '';
-                var tempDate = '';
-                angular.forEach(data.data, function (value, key) {
-                    var array = [];
-                    if (value.fecha == tempDate && keyTemp != '') {
-                        dataTemp[(dataTemp.length - 1)][value.negocio] = parseInt(value.total);
-                        keyTemp = '';
-                    } else {
-                        keyTemp = key;
-                        tempDate = value.fecha;
-                        array[value.negocio] = parseInt(value.total);
-                        array['fecha'] = apiFactory.convertDateStringsToDates('1/' + value.fecha);
-                        dataTemp.push(array)
-                    }
-                });
+                var dataTemp = $scope.serialChart(data.data);
 
-                $scope.gAnual = dataTemp;
+                $scope.gAnual = dataTemp.data;
 
                 var chartAnual = AmCharts.makeChart("gAnual",
                     {
                         "type": "serial",
                         "pathToImages": "/js/amcharts/images/",
                         "categoryField": "fecha",
-                        "dataDateFormat": "D/M/YYYY",
+                        "dataDateFormat": "DD/MM/YYYY",
                         "autoMarginOffset": 0,
-                        "marginLeft": 19,
+                        "marginLeft": 0,
                         "plotAreaBorderColor": "#FFFFFF",
                         "borderColor": "#FFFFFF",
                         "fontFamily": "sans-serif",
                         "fontSize": 10,
                         "theme": "none",
+                        "chartCursor": {},
+                        "chartScrollbar": {},
+                        "trendLines": [],
                         "categoryAxis": {
+                            "startOnAxis": true,
                             "minPeriod": "MM",
-                            "parseDates": true
+                            "parseDates": true,
+                            "gridPosition": "start",
+                            "axisAlpha": 0,
+                            "fillAlpha": 0.05,
+                            "fillColor": "#000000",
+                            "gridAlpha": 0
                         },
                         "chartCursor": {
-                            "categoryBalloonDateFormat": "DD MMM YYYY"
+                            "categoryBalloonDateFormat": "DD MMMM YYYY"
+                        },
+                        "numberFormatter": {
+                            "precision": -1,
+                            "decimalSeparator": ",",
+                            "thousandsSeparator": "."
                         },
                         "graphs": [
                             {
+                                "balloonText": "<img src='http://www.amcharts.com/lib/3/images/car.png' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
                                 "bullet": "round",
-                                "columnWidth": 0,
-                                "id": "AmGraph-1",
                                 "title": "Fija",
-                                "valueAxis": "ValueAxis-1",
+                                "fillAlphas": 0,
+                                "lineAlpha": 0.51,
                                 "valueField": "FIJA"
                             },
                             {
+                                "balloonText": "<img src='http://www.amcharts.com/lib/3/images/car.png' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
                                 "bullet": "round",
-                                "columnWidth": 0,
-                                "id": "AmGraph-2",
                                 "title": "Movil",
-                                "valueAxis": "ValueAxis-1",
+                                "fillAlphas": 0,
+                                "lineAlpha": 0.51,
                                 "valueField": "MOVIL"
                             }
                         ],
@@ -114,8 +163,12 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
                         ],
                         "valueAxes": [
                             {
-                                "id": "ValueAxis-1",
-                                "title": "Total"
+                                "id": "Total",
+                                "title": "Total",
+                                "integersOnly": true,
+                                "axisAlpha": 0,
+                                "dashLength": 5,
+                                "gridCount": 10
                             }
                         ],
                         "exportConfig": {
@@ -131,15 +184,20 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
                             "cornerRadius": 5,
                             "fillColor": "#FFFFFF"
                         },
+                        "chartCursor": {
+                            "cursorAlpha": 0,
+                            "cursorPosition": "mouse",
+                            "zoomable": false
+                        },
                         "legend": {
-                            "useGraphSettings": true
+                            "useGraphSettings": false
                         },
                         "titles": [
                             {
                                 "color": "#000000",
                                 "id": "lead",
                                 "size": 15,
-                                "text": "Totales por mes (Anual)"
+                                "text": "Total acumulados (Anual)"
                             }
                         ],
                         "dataProvider": $scope.gAnual
