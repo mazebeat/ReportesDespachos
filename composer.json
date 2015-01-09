@@ -10,8 +10,10 @@
         "barryvdh/laravel-debugbar": "~1.7",
         "barryvdh/laravel-ide-helper": "~1.11",
         "fitztrev/laravel-html-minify": "1.*",
-        "barryvdh/laravel-vendor-cleanup": "1.*"
-	},
+        "barryvdh/laravel-vendor-cleanup": "1.*",
+        "anchu/ftp": "dev-master",
+        "Chumper/Zipper": "0.5.0"
+    },
     "require-dev": {
         "way/generators": "~2.0",
         "doctrine/dbal": "2.5.*@dev"
@@ -21,6 +23,7 @@
 			"app/commands",
 			"app/controllers",
 			"app/models",
+            "app/utils",
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php"

@@ -4,74 +4,93 @@
 @endsection
 
 @section('content')
-<div class="row">
-	<div class="col-md-6">
-		<div class="panel panel-danger">
-			<div class="panel-heading">
-				<h4>Acumulados</h4>
-			</div>
-			<div class="panel-body">
-				<table class="table table-hover">
-					<thead style="color: white; background-color: #D9534F;">
-						<tr>
-							<th>Cuenta</th>
-							<th>Anual</th>
-							<th>Mensual</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Fija</td>
-							<td>1000</td>
-							<td>1547</td>
-						</tr>
-						<tr>
-							<td>Movil</td>
-							<td>1000</td>
-							<td>1547</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-6">
-		<div class="panel panel-danger">
-			<div class="panel-heading">
-				<h4>Acumulados anual</h4>
-			</div>
-			<div class="panel-body">
-				<div id="chartdiv3" style="width: 100%; height: 300px; background-color: #FFFFFF;" ></div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-6">
-		<div class="panel panel-danger">
-			<div class="panel-heading">
-				<h4>Gráfico Resúmen Fija</h4>
-			</div>
-			<div class="panel-body">
-				<div id="chartdiv" style="height: 200px;" ></div>
-			</div>
-		</div>
-	</div>
+<div ng-controller="graphsController">
 
-	<div class="col-md-6">
-		<div class="panel panel-danger">
-			<div class="panel-heading">
-				<h4>Gráfico Resúmen Movil</h4>
-			</div>
-			<div class="panel-body">
-				<div id="chartdiv2" style="height: 200px;" ></div>
-			</div>
-		</div>
-	</div>
-	<div id="chartdiv3" style="height: 200px;" ></div>
+    <section class="panel">
+        <header class="panel-heading custom-tab dark-tab">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#acumulados">Acumulados</a>
+                </li>
+                <li class="">
+                    <a data-toggle="tab" href="#resumen">Resumenes</a>
+                </li>
+            </ul>
+        </header>
+        <div class="panel-body">
+            <div class="tab-content">
+                <div id="acumulados" class="tab-pane active">
+                    <div class="col-md-6">
+                        <table class="table table-hover">
+                            <thead style="color: white; background-color: #E70D2F;">
+                                <tr>
+                                    <th>Cuenta</th>
+                                    <th>Anual</th>
+                                    <th>Mensual</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Fija</td>
+                                    <td>@{{ anualfija }}</td>
+                                    <td>@{{ mensualfija }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Movil</td>
+                                    <td>@{{ anualmovil }}</td>
+                                    <td>@{{ mensualmovil }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        {{-- Loading directive --}}
+                        <loading ng-hide="gAnual.length > 0"></loading>
+                        <div id="gAnual" style="height: 400px;"></div>
+                    </div>
+                </div>
+                <div id="resumen" class="tab-pane">
+                    <div class="col-md-6">
+                       <h4 class="text-center">Gráfico Resúmen Fija</h4>
+                        {{-- Loading directive --}}
+                        <loading ng-hide="gMensualFija.length > 0"></loading>
+                        <div id="gMensualFija" style="height: 400px;"></div>
+                    </div>
+                    <div class="col-md-6">
+                       <h4 class="text-center">Gráfico Resúmen Movil</h4>
+                        <loading ng-hide="gMensualMovil.length > 0"></loading>
+                        <div id="gMensualMovil" style="height: 400px;"></div>
+                    </div>
+                </div>                  
+            </div>
+        </div>
+    </section>  
 </div>
 @endsection
 
 @section('file-style')
-<script src="js/dashboard-chart-init.js"></script>
+{{--{{ HTML::script('js/dashboard-chart-init.js') }}--}}
+<!-- CHARTS -->
+{{ HTML::script('js/amcharts/amcharts.js') }}
+{{ HTML::script('js/amcharts/pie.js') }}
+{{ HTML::script('js/amcharts/serial.js') }}
+{{ HTML::script('js/amcharts/exporting/amexport_combined.js') }}
+{{ HTML::script('js/amcharts/lang/es.js') }}
+@endsection
+
+@section('text-script')
+<script>
+    var chartMensualFija = new AmCharts.AmPieChart();
+    var chartMensualMovil = new AmCharts.AmPieChart();
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var news = $(e.target);
+        var olds = $(e.relatedTarget);
+
+        if (news.attr('href') == '#resumen') {
+            chartMensualFija.validateNow();
+            chartMensualMovil.validateNow();
+        }
+    });
+</script>
 @endsection

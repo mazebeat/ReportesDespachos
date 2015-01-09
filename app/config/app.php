@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://homestead.app',
+	'url' => 'http://10.185.30.243:888/',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'America/Santiago',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'es',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return array(
 	|
 	*/
 
-	'key' => 'YourSecretKey!!!',
+	'key' => 'XVfKfeZPhkvRIFrvMNTTIbz7SFZFlfJI',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -126,7 +126,8 @@ return array(
 		'Fitztrev\LaravelHtmlMinify\LaravelHtmlMinifyServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Barryvdh\VendorCleanup\VendorCleanupServiceProvider',
-
+		'Anchu\Ftp\FtpServiceProvider',
+		'Chumper\Zipper\ZipperServiceProvider',
 	),
 
 	/*
@@ -193,9 +194,10 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
-
-		'Carbon'            => 'Carbon\Carbon',
-		'Debugbar'          => 'Barryvdh\Debugbar\Facade',		
+		
+		'Carbon'            => '\Carbon\Carbon',
+		'Debugbar'          => 'Barryvdh\Debugbar\Facade',
+		'Chumper'           => '\Chumper\Zipper\Zipper',
 
 	),
 

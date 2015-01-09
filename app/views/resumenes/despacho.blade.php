@@ -12,102 +12,90 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-danger">
-            <div class="panel-heading">
-                {{ Form::open(array()) }}
-                <div class="col-md-2">
-                    {{ Form::label('negocio', 'Negocio', array('class' => 'control-label ')) }}
-                    {{ Form::select('negocio', array('fija' => 'Fija',  'movil' => 'Movil' ), null, array('class' => 'form-control'))  }}
-                </div>
-                <div class="col-md-3">
-                    {{ Form::label('fecha', 'Fecha', array('class' => 'control-label')) }}
-                    <input type="text" value="" size="16" data-date-minviewmode="months" data-date-viewmode="years" da-date-formaatt="mm/yyyy" class="form-control form-control-inline input-medium default-date-picker">
-                </div>
-                <div class="col-md-2">
-                    {{ Form::label('ciclos', 'Ciclos', array('class' => 'control-label')) }}
-                    {{ Form::select('ciclos', array('1' => '1',  '13' => '13', '20' => '20' ), null, array('class' => 'form-control'))  }}
-                </div>
-                <div class="col-md-1" style="margin-top: 24px;">
-                    {{ Form::label('consultar', 'Consultar', array('class' => 'control-label sr-only' )) }}
-                    <button type="button" class="btn btn-default">Consultar</button>
-                </div>
-                {{ Form::close() }}   
-                <div class="clearfix"></div>      
-            </div>            
-            <div class="panel-body">
-                <table class="table table-hover table-responsive">
-                    <thead>
-                        <th>Negocio</th>
-                        <th>Mes</th>
-                        <th>Ciclo</th>
-                        <th>Tipo Documento</th>
-                        <th>Total Envios</th>
-                        <th>Total Rebotes</th>
-                        <th>Total Leído</th>                        
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Movil</td>
-                            <td>11/2014</td>
-                            <td>11114</td>
-                            <td>23</td>
-                            <td>3246</td>
-                            <td>56345</td>
-                            <td>7852</td>
-                        </tr>
-                        <tr>
-                            <td>Movil</td>
-                            <td>10/2014</td>
-                            <td>11114</td>
-                            <td>1</td>
-                            <td>74</td>
-                            <td>8</td>
-                            <td>68</td>
-                        </tr>
-                        <tr>
-                            <td>Movil</td>
-                            <td>09/2014</td>
-                            <td>11114</td>
-                            <td>12</td>
-                            <td>2546</td>
-                            <td>157</td>
-                            <td>2145</td>
-                        </tr>
-                        <tr>
-                            <td>Movil</td>
-                            <td>08/2014</td>
-                            <td>11114</td>
-                            <td>23</td>
-                            <td>628</td>
-                            <td>272</td>
-                            <td>5</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                        	<td></td>
-                        	<td></td>
-                        	<td></td>
-                        	<td></td>
-                        	<td>78545</td>
-                        	<td>56478</td>
-                        	<td>789654</td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    </div>
+	<div class="col-md-12">
+		@if(isset($message) && $message != '' && isset($sql) && !count($sql))
+		<div class="alert alert-warning alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<strong>Atención! </strong> {{ $message }}
+		</div>
+		@endif
+		<div class="panel panel-danger">
+			<div class="panel-heading">
+				{{ Form::open(array('role' => 'form')) }}
+				<div class="row">
+					<div class="form-group col-xs-4 col-md-2">
+						{{ Form::label('negocio', 'Negocio (*)', array('class' => 'control-label ')) }}
+						{{ Form::select('negocio', array('' => '','fija' => 'Fija',  'movil' => 'Movil' ), Input::old('negocio'), array('class' => 'form-control negocio')) }}
+						<small class="help-block">{{ $errors->first('negocio') }}</small>
+					</div>
+					<div class="form-group col-xs-3 col-md-3">
+						{{ Form::label('fecha', 'Fecha (*)', array('class' => 'control-label')) }}
+						<input type="text" name="fecha" value="{{ Input::old('fecha') }}" size="16" data-date-minviewmode="months" data-date-viewmode="months" data-date-format="yyyy-mm" class="form-control form-control-inline input-medium default-date-picker" autocomplete='off'>
+						<small class="help-block">{{ $errors->first('fecha') }}</small>
+					</div>
+					<div class="form-group col-xs-3 col-md-2">
+						{{ Form::label('ciclo', 'ciclo (*)', array('class' => 'control-label')) }}
+						{{ Form::select('ciclo', array(), Input::old('ciclo'), array('class' => 'form-control ciclo', 'disabled'))  }}
+						{{--{{ Form::select('ciclo', array(), Input::old('ciclo'), array('class' => 'form-control ciclo'))  }}--}}
+						<small class="help-block">{{ $errors->first('ciclo') }}</small>
+					</div>
+					<div class="form-group col-xs-1 col-md-1" style="margin-top: 24px;">
+						{{ Form::label('consultar', 'Consultar', array('class' => 'control-label sr-only' )) }}
+						<button type="submit" class="btn btn-default">Consultar</button>
+					</div>
+				</div>
+				{{ Form::close() }}
+			</div>
+			@if(isset($sql) && count($sql))
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<th>Negocio</th>
+							<th>Fecha</th>
+							<th>Ciclo</th>
+							<th>Tipo Documento</th>
+							<th>Total Envios</th>
+							<th>Total Rebotes</th>
+							<th>Total Leído</th>
+						</thead>
+						<tbody>
+							@foreach($sql as $key => $value)
+							<tr>
+								<td>{{ $value->negocio }}</td>
+								<td>{{ $value->fecha }}</td>
+								<td>{{ $value->ciclo }}</td>
+								<td>{{ $value->tipodoc }}</td>
+								<td>{{ $value->qenvios }}</td>
+								<td>{{ $value->rebotes }}</td>
+								<td>{{ $value->leidos }}</td>
+							</tr>
+							@endforeach
+						</tbody>
+						<tfoot>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			@endif
+		</div>
+
+	</div>
 </div>
 @endsection
 
 @section('file-style')
+{{ HTML::style('js/bootstrap-datepicker/css/datepicker.css') }}
 {{ HTML::style('js/bootstrap-datepicker/css/datepicker-custom.css') }}
-{{ HTML::style('js/bootstrap-timepicker/css/timepicker.css') }}
-{{ HTML::style('js/bootstrap-colorpicker/css/colorpicker.css') }}
-{{ HTML::style('js/bootstrap-daterangepicker/daterangepicker-bs3.css') }}
-{{ HTML::style('js/bootstrap-datetimepicker/css/datetimepicker-custom.css') }}
 @endsection
 
 @section('text-style')
@@ -118,11 +106,8 @@
 @section('file-script')
 <!--pickers plugins-->
 {{ HTML::script('js/bootstrap-datepicker/js/bootstrap-datepicker.js') }}
-{{ HTML::script('js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js') }}
+{{ HTML::script('js/bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js', array('charset' => 'UTF-8')) }}
 {{ HTML::script('js/bootstrap-daterangepicker/moment.min.js') }}
-{{ HTML::script('js/bootstrap-daterangepicker/daterangepicker.js') }}
-{{ HTML::script('js/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}
-{{ HTML::script('js/bootstrap-timepicker/js/bootstrap-timepicker.js') }}
 
 <!--pickers initialization-->
 {{ HTML::script('js/pickers-init.js') }}
@@ -130,5 +115,69 @@
 
 @section('text-script')
 <script>
+	var ciclo_fija = [{'0001': '0001', '0004': '0004', '0008': '0008'}];
+	var ciclo_movil = [{'1': '1', '13': '13', '20': '20'}];
+	var data = [];
+	var complete = function () {
+		if ($('.negocio').val() != '' && $('.ciclo').val() == null) {
+			$('.ciclo').empty();
+			var value = $('.negocio').val();
+			if (value == '' || value == null) {
+				$('.ciclo').empty().prop('disabled', 'disabled');
+				data = [];
+			} else {
+				if (value.indexOf('fija') != -1) {
+					data = ciclo_fija;
+				}
+
+				if (value.indexOf('movil')!= -1) {
+					data = ciclo_movil;
+				}
+
+				if (data.length > 0) {
+					$('.ciclo').append($("<option value=\"\"></option>"));
+					$.each(data[0], function (key, value) {
+						$('.ciclo').append($("<option value=\"" + key + "\">" + value + "</option>"));
+					});
+					$('.ciclo').removeAttr('disabled');
+					data = [];
+				} else {
+					$('.ciclo').empty().prop('disabled', 'disabled');
+				}
+			}
+		}
+	};
+
+	complete();
+
+	$('.negocio').on('change', function (event) {
+		$('.ciclo').empty();
+		var value = $(this).val().toLowerCase();
+		if (value == '' || value == null) {
+			$('.ciclo').empty().prop('disabled', 'disabled');
+			data = [];
+		} else {
+			if (value.indexOf('fija') != -1) {
+				data = ciclo_fija;
+			}
+
+			if (value.indexOf('movil')!= -1) {
+				data = ciclo_movil;
+			}
+
+			if (data.length > 0) {
+				$('.ciclo').append($("<option value=\"\"></option>"));
+				$.each(data[0], function (key, value) {
+					$('.ciclo').append($("<option value=\"" + key + "\">" + value + "</option>"));
+				});
+				$('.ciclo').removeAttr('disabled');
+				data = [];
+			} else {
+				$('.ciclo').empty().prop('disabled', 'disabled');
+			}
+		}
+
+		event.preventDefault();
+	});
 </script>
 @endsection

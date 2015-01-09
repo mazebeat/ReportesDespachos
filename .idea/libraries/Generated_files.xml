@@ -1,0 +1,67 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/jquery/dist/jquery.min.min.js" />
+        <item url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/openhandler.min.js" />
+        <item url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/highlightjs/highlight.pack.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/directives.min.js" />
+        <item url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/debugbar.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/factories.min.js" />
+        <item url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets/sqlqueries/widget.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/app.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/ladda/dist/spin.min.min.js" />
+        <item url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets.min.js" />
+        <item url="file://$PROJECT_DIR$/app/assets/js/controllers.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/ladda/js/ladda.min.js" />
+        <item url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets/templates/widget.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/controllers.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/ladda/dist/spin.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/amcharts/exporting/amexport.min.js" />
+        <item url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets/mails/widget.min.js" />
+        <item url="file://$PROJECT_DIR$/app/assets/js/directives.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/amcharts/exporting/amexport_combined.min.js" />
+        <item url="file://$PROJECT_DIR$/app/assets/js/factories.min.js" />
+        <item url="file://$PROJECT_DIR$/app/assets/js/app.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/scripts.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/ladda/dist/ladda.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/ladda/js/ladda.jquery.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/ladda/js/spin.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/ladda/dist/ladda.min.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/ladda/js/prism.min.js" />
+        <item url="file://$PROJECT_DIR$/public/js/ladda/dist/ladda.jquery.min.min.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/jquery/dist/jquery.min.min.js" />
+      <root url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/openhandler.min.js" />
+      <root url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/highlightjs/highlight.pack.min.js" />
+      <root url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/debugbar.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/directives.min.js" />
+      <root url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets/sqlqueries/widget.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/factories.min.js" />
+      <root url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/ladda/dist/spin.min.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/app.min.js" />
+      <root url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets/templates/widget.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/ladda/js/ladda.min.js" />
+      <root url="file://$PROJECT_DIR$/app/assets/js/controllers.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/controllers.min.js" />
+      <root url="file://$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets/mails/widget.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/amcharts/exporting/amexport.min.js" />
+      <root url="file://$PROJECT_DIR$/app/assets/js/directives.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/amcharts/exporting/amexport_combined.min.js" />
+      <root url="file://$PROJECT_DIR$/app/assets/js/factories.min.js" />
+      <root url="file://$PROJECT_DIR$/app/assets/js/app.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/scripts.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/ladda/js/ladda.jquery.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/ladda/js/spin.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/ladda/dist/ladda.min.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/ladda/js/prism.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/ladda/dist/ladda.jquery.min.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/ladda/dist/spin.min.js" />
+      <root url="file://$PROJECT_DIR$/public/js/ladda/dist/ladda.min.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

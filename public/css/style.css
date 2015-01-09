@@ -11,15 +11,37 @@ Author: ThemeBucket
 
 body {
     background: #424f63;
-    font-family: 'Open Sans', sans-serif;
+    /*font-family: 'Open Sans', sans-serif;*/
     color: #7a7676;
     line-height: 20px;
     overflow-x: hidden;
     font-size: 14px;
 }
 
+/* preloader */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*background-color: #e4e7ea;*/
+    background-color: #ffffff;
+    z-index: 10000;
+}
+
+#status {
+    width: 70px;
+    height: 9px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -15px 0 0 -15px;
+    font-size: 32px;
+}
+
 input, select, textarea {
-    font-family: 'Open Sans', sans-serif;
+    /*font-family: 'Open Sans', sans-serif;*/
     color: #767676;
 }
 
@@ -29,9 +51,9 @@ a {
 
 a:focus, a:active, a:hover {
     outline: none;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    transition: all 0.1s;
     color: #353F4F;
 }
 
@@ -61,7 +83,7 @@ hr {
 .form-signin {
     max-width: 330px;
     margin: 50px auto;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.6);
     border-radius: 5px;
     -webkit-border-radius: 5px;
 }
@@ -1005,8 +1027,10 @@ h5.left-nav-title {
 .horizontal-menu-page .navbar-default .navbar-nav > .open > a:focus,
 .horizontal-menu-page .navbar-default .navbar-nav > li > a:hover,
 .horizontal-menu-page .navbar-default .navbar-nav > li > a:focus {
+    /*background-color: #E70D2F;*/
     background-color: #ba0c0c;
     color: #FFFFFF;
+    border-bottom: 4px solid rgba(255, 255, 255, 0.5);
 }
 
 .horizontal-menu-page .navbar-default .navbar-nav > li > a {
@@ -1035,8 +1059,9 @@ h5.left-nav-title {
 .horizontal-menu-page .dropdown-menu > li > a:hover,
 .horizontal-menu-page .dropdown-menu > li > a:focus,
 .horizontal-menu-page .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
-    background-color: #ba0c0c;
-    color: #65CEA7;
+    background-color: #E70D2F;
+    font-weight: bold;
+    /*color: #65CEA7;*/
     text-decoration: none;
 }
 
@@ -1080,10 +1105,11 @@ h5.left-nav-title {
 }
 
 .tools a {
-    background: #E3E4E8;
+    /*background: #E3E4E8;*/
     border-radius: 3px;
     -webkit-border-radius: 3px;
-    color: #858582;
+    /*color: #858582;*/
+    color: #ffffff;
     float: left;
     margin-left: 3px;
     padding: 10px;
@@ -1091,8 +1117,9 @@ h5.left-nav-title {
 }
 
 .tools a:hover {
-    background: #65cea7;
-    color: #fff;
+    background: #ffffff;
+    /*color: #fff;*/
+    color: #000;
 }
 
 /*--------------------------------
@@ -4724,4 +4751,89 @@ ol.comment-list {
     background: #EFF0F4;
     border-radius: 5px;
     -webkit-border-radius: 5px;
+}
+
+/* -------------------------------
+Popup bootstrap overwrite
+---------------------------------- */
+
+.popover-all {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1010;
+    display: none;
+    padding: 5px;
+}
+
+.popover-all.bottom {
+    margin-top: 5px;
+}
+
+.popover-all.bottom .popover-arrow {
+    top: 0;
+    left: 93%;
+    margin-left: -5px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #000000;
+}
+
+.popover-all .popover-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.popover-inner {
+    padding: 3px;
+    width: 500px;
+    overflow: hidden;
+    background: #000000;
+    background: rgba(0, 0, 0, 0.8);
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+.popover-title {
+    padding: 8px 14px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 18px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ebebeb;
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
+}
+
+.popover-content {
+    padding: 9px 14px;
+    background-color: #ffffff;
+    -webkit-border-radius: 0 0 3px 3px;
+    -moz-border-radius: 0 0 3px 3px;
+    border-radius: 0 0 3px 3px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+}
+
+.export ul.dropdown-menu {
+    background-color: #fff;
+    min-width: 37px;
+    border: 1px solid #000;
+}
+
+.export ul.dropdown-menu li a {
+     color: #000;
+ }
+
+.export ul.dropdown-menu li:hover a {
+    color: #fff;
+    font-weight: normal;
 }

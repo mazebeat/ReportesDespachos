@@ -164,8 +164,12 @@
 
 .has-success .form-control:focus,
 .has-warning .form-control:focus,
-.has-error .form-control:focus{
+.has-error .form-control:focus {
     box-shadow: none;
+}
+
+.help-block {
+    color: #FFFFFF;
 }
 
 /*panels*/
@@ -195,7 +199,7 @@
 }
 
 .panel-danger > .panel-heading {
-    background-color: #D9534F;
-    border-color: #D9534F;
+    background-color: #E70D2F;
+    border-color: #E70D2F;
     color: #fff;
 }
