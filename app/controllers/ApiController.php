@@ -29,7 +29,7 @@ class ApiController extends \BaseController
 
 	public function store_query_cache($name, $query, $minutes = 15)
 	{
-		$sql     = DB::select($query);
+		$sql = DB::select($query);
 		$minutes = Carbon::now()->addMinutes($minutes);
 		Cache::put($name, $sql, $minutes);
 		unset($minutes);
@@ -62,10 +62,10 @@ class ApiController extends \BaseController
 
 	public function connectSp()
 	{
-		$server   = '10.185.30.243\INST1';
+		$server = '10.185.30.243\INST1';
 		$database = 'ReportesDespachos';
-		$user     = 'emessuser';
-		$clave    = $user . '2013';
+		$user = 'emessuser';
+		$clave = $user . '2013';
 
 		$conn = new PDO("sqlsrv:server=$server;Database=$database;", "$user", "$clave");
 		//	$statement = DB::connection()->getReadPdo()->prepare("EXEC obtenerDetalle 'FIJA','0001',1,2014");
@@ -80,7 +80,7 @@ class ApiController extends \BaseController
 
 	public function ftp()
 	{
-		$ftp  = FTP::connection();
+		$ftp = FTP::connection();
 		$list = $ftp->getDirListing('.', '-la');
 
 		var_dump($ftp->currentDir());

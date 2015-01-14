@@ -1,5 +1,8 @@
 <?php
 
+use App\Util\arrayToCsv;
+use App\Util\Functions;
+
 class ReportesController extends \ApiController
 {
 	private $message;
@@ -31,12 +34,9 @@ class ReportesController extends \ApiController
 
 		// Valida campos
 		if (str_contains(Str::lower(Input::get('negocio')), 'despacho ')) {
-			$rules = array('negocio' => 'required',
-			               'fecha'   => 'required',
-			               'ciclo'   => 'required');
+			$rules = array('negocio' => 'required', 'fecha' => 'required', 'ciclo' => 'required');
 		} else {
-			$rules = array('negocio' => 'required',
-			               'fecha'   => 'required');
+			$rules = array('negocio' => 'required', 'fecha' => 'required');
 		}
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -57,13 +57,11 @@ class ReportesController extends \ApiController
 		$name     = $negocio . Input::get('fecha') . $ciclo;
 		$nameFile = $negocio . '_' . Input::get('fecha') . '_' . $ciclo;
 
-		// Crea consulta
 		if (!Cache::has($name)) {
-			$sql = Cache::get($name);
-		} else {
 			switch (Str::lower($negocio)) {
 				case 'despacho fija':
 					$negocio = 'FIJA';
+					$ciclo   = Input::get('ciclo') . explode('-', $fecha)[1] . substr(explode('-', $fecha)[0], -2);
 					$query   = "EXEC ObtenerDetalle_ex1 '%s', %s, %s, %s";
 					$query   = sprintf($query, $negocio, $ciclo, $fecha->month, $fecha->year);
 					break;
@@ -90,44 +88,36 @@ class ReportesController extends \ApiController
 			}
 		}
 
-		//  Ejecuta consulta
-		if (Str::lower($negocio) == 'despacho fija' || Str::lower($negocio) == 'despacho movil') {
-			$conn = DB::connection()->getReadPdo();
-			$conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-			$stmt = $conn->prepare($query);
-			$stmt->execute();
+		if (!File::exists($this->root . $nameFile . '.zip')) {
+			$csv = new arrayToCsv();
 
-			if (!File::exists($this->root . $nameFile . '.zip')) {
-				$csv = new \arrayToCsv();
-				//  Crea archivo
-				while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-					File::append($this->root . $nameFile, $csv->convert($row));
-				}
-
-				// Se crea el zip
-				$zipper = new \Chumper\Zipper\Zipper;
-				$zipper->make($this->root . $nameFile . $name . '.zip')->add(public_path() . '/temp/' . $nameFile . '.txt');
-
-				// Elimina archivo txt
-				unlink(public_path() . '/temp/' . $nameFile . '.txt');
+			if (Cache::has($name)) {
+				$sql = Cache::get($name);
 			} else {
-				$this->message[] = 'Archivo ya generado';
+				$sql = $this->store_query_cache($name, $query);
+			}
+
+			$fileLocation = $this->root . $nameFile . '.txt';
+
+			$count = 0;
+			foreach ($sql as $key => $line) {
+				if ($count < 0) {
+					File::append($fileLocation, $csv->convertLine($key));
+					$count++;
+				}
+				File::append($fileLocation, $csv->convertLine($line));
+			}
+
+			if (File::exists($fileLocation)) {
+				if (!File::exists($this->root . $nameFile . '.zip')) {
+					$zipper = new \Chumper\Zipper\Zipper;
+					$zipper->make($this->root . $nameFile . '.zip')->add($fileLocation);
+				} else {
+					unlink($fileLocation);
+				}
 			}
 		} else {
-			//  Ejecuta sql
-			$sql = $this->store_query_cache($name, $query);
-
-			// Crea archivo temp y zip
-			if (!File::exists($this->root . $nameFile . '.zip')) {
-				$result = $this->generate_file($this->root, $nameFile, $sql);
-				if (!$result) {
-					$this->message[] = 'No se generaron archivos con su consulta.';
-				} else {
-					unlink($this->root . $nameFile . '.txt');
-				}
-			} else {
-				$this->message[] = 'Archivo ya generado';
-			}
+			$this->message[] = 'Archivo ya generado';
 		}
 
 		unset($negocio);

@@ -20,7 +20,7 @@
 	<![endif]-->
 </head>
 <body id="{{ \App\Util\SiteHelpers::bodyId() }}" class="login-body" ng-app="reportesDespacho">
-	@include('layouts.preloader')
+	{{--@include('layouts.preloader')--}}
 	<div class="container">
 		@yield('content')
 	</div>

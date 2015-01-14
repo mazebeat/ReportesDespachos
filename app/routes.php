@@ -1,6 +1,7 @@
 <?php
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', '512M');
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -36,7 +37,7 @@ Route::group(array('before' => 'auth'), function () {
 			Route::post('individual', 'BusquedaController@process');
 		});
 		//		admin/reportes
-		Route::group(array('prefix' => 'resportes'), function () {
+		Route::group(array('prefix' => 'reportes'), function () {
 			Route::get('reporte', 'ReportesController@reporte');
 			Route::post('reporte', 'ReportesController@procesa_reporte');
 			Route::get('estadodespachos', 'ReportesController@estado_despacho');
@@ -57,52 +58,16 @@ Route::group(array('before' => 'auth'), function () {
 	//	logout method
 	Route::get('logout', 'HomeController@logout');
 });
-
-Route::get('test', function () {
-	$server   = '10.185.30.243\INST1';
-	$database = 'ReportesDespachos';
-	$user     = 'emessuser';
-	$password = $user . '2013';
-	//
-	//	$conn = new PDO("sqlsrv:server=$server;Database=$database;", "$user", "$clave");
-	//	$statement = DB::connection()->getReadPdo()->prepare("EXEC REPORTEESTADODESPACHO_EX1 '20130624 08:00:00' , '20130624 20:59:59'");
-	//	$statement = $conn->prepare("EXEC REPORTEESTADODESPACHO_EX1 '20130624 08:00:00' , '20130624 20:59:59'");
-	//	$statement = $conn->prepare("EXEC obtenerDetalle 'FIJA','0001',1,2014");
-	//	$statement->execute();
-	//
-	//	while ($row = $statement->fetchAll(PDO::FETCH_ASSOC)) {
-	//		var_dump($row);
-	//	}
-	$serverName     = $server;
-	$connectionInfo = array("Database" => $database, "UID" => $user, "PWD" => $password);
-	$conn           = sqlsrv_connect($serverName, $connectionInfo);
-
-	if ($conn) {
-		echo "Conexión establecida.<br />";
-	} else {
-		echo "Conexión no se pudo establecer.<br />";
-		die(print_r(sqlsrv_errors(), true));
-	}
-	$sql  = "{ CALL obtenerDetalle_ex1 ('FIJA', '0001', '03', '2014') }";
-	$stmt = sqlsrv_query($conn, $sql);
-	if ($stmt === false) {
-		echo "Error in executing statement 3.\n";
-		die(print_r(sqlsrv_errors(), true));
-	}
-	dd($row = sqlsrv_fetch_array($stmt));
-	while ($row = sqlsrv_fetch_array($stmt)) {
-		var_dump($row);
-	}
-
-});
-
-Route::get('testODBC', function () {
-	$data = array();
-	$conn = DB::connection()->getReadPdo();
-	$conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-	$stmt = $conn->prepare("EXEC dbo.obtenerDetalle_ex1 'FIJA', '0001', '03', '2014'");
-	$stmt->execute();
-	while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-		File::append(public_path() . '/salida.txt', json_encode($row));
-	}
-});
+//
+//Route::get('test', function () {
+//});
+//
+//Route::get('testODBC', function () {
+////	$conn = DB::connection()->getReadPdo();
+////	$conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+////	$stmt = $conn->prepare("EXEC dbo.obtenerDetalle_ex1 'FIJA', '0001', '03', '2014'");
+////	$stmt->execute();
+//	while ($row = DB::select("EXEC dbo.obtenerDetalle_ex1 'FIJA', '0001', '03', '2014'")) {
+//		File::append(public_path() . '/salida.txt', json_encode($row));
+//	}
+//});
