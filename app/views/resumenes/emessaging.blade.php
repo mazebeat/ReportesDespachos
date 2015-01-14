@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-xs-1 col-md-1" style="margin-top: 24px;">
                     {{ Form::label('consultar', 'Consultar', array('class' => 'control-label sr-only' )) }}
-                    <button type="submit" class="btn btn-default">Consultar</button>
+                    <button type="submit" class="btn btn-default ladda-button" data-style="zoom-in">Consultar</button>
                 </div>
             </div>
             {{ Form::close() }}
@@ -102,5 +102,6 @@
 
 @section('text-script')
 <script>
+    Ladda.bind('button', {timeout: 2000});
 </script>
 @endsection

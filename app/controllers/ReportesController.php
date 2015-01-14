@@ -1,6 +1,5 @@
 <?php
 
-use App\Util\arrayToCsv;
 use App\Util\Functions;
 
 class ReportesController extends \ApiController
@@ -61,35 +60,33 @@ class ReportesController extends \ApiController
 			switch (Str::lower($negocio)) {
 				case 'despacho fija':
 					$negocio = 'FIJA';
-					$ciclo   = Input::get('ciclo') . explode('-', $fecha)[1] . substr(explode('-', $fecha)[0], -2);
-					$query   = "EXEC ObtenerDetalle_ex1 '%s', %s, %s, %s";
+					$query   = "EXEC dbo.ObtenerDetalle_ex1 '%s', %s, %s, %s";
 					$query   = sprintf($query, $negocio, $ciclo, $fecha->month, $fecha->year);
 					break;
 				case 'despacho movil':
 					$negocio = 'MOVIL';
-					$ciclo   = Input::get('ciclo') . explode('-', $fecha)[1] . substr(explode('-', $fecha)[0], -2);
-					$query   = "EXEC ObtenerDetalle_ex1 '%s', %s, %s, %s";
+					$query   = "EXEC dbo.ObtenerDetalle_ex1 '%s', %s, %s, %s";
 					$query   = sprintf($query, $negocio, $ciclo, $fecha->month, $fecha->year);
 					break;
 				case 're-despacho':
-					$query = "EXEC ObtenerDetalleRedespacho_ex1 '%s', '%s'";
+					$query = "EXEC dbo.ObtenerDetalleRedespacho_ex1 '%s', '%s'";
 					$query = sprintf($query, $fecini, $fecfin);
 					break;
 				case 're-envio fija':
 					$negocio = '1';
-					$query   = "EXEC DetalleReenvios_ex1 '%s', '%s', '%s'";
+					$query   = "EXEC dbo.DetalleReenvios_ex1 '%s', '%s', '%s'";
 					$query   = sprintf($query, $negocio, $fecini, $fecfin);
 					break;
 				case 're-envio movil':
 					$negocio = '2';
-					$query   = "EXEC DetalleReenvios_ex1 '%s', '%s', '%s'";
+					$query   = "EXEC dbo.DetalleReenvios_ex1 '%s', '%s', '%s'";
 					$query   = sprintf($query, $negocio, $fecini, $fecfin);
 					break;
 			}
 		}
 
 		if (!File::exists($this->root . $nameFile . '.zip')) {
-			$csv = new arrayToCsv();
+			$csv = new \App\Util\arrayToCsv();
 
 			if (Cache::has($name)) {
 				$sql = Cache::get($name);
@@ -99,13 +96,20 @@ class ReportesController extends \ApiController
 
 			$fileLocation = $this->root . $nameFile . '.txt';
 
+			$conn = DB::connection()->getReadPdo();
+			$conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+			$stmt = $conn->prepare($query);
+			$stmt->execute();
 			$count = 0;
-			foreach ($sql as $key => $line) {
+
+			while ($row = $stmt->fetchAll(PDO::FETCH_ASSOC)) {
 				if ($count < 0) {
-					File::append($fileLocation, $csv->convertLine($key));
-					$count++;
+					foreach ($row as $key => $value) {
+						File::append($fileLocation, $csv->convert($key));
+						$count++;
+					}
 				}
-				File::append($fileLocation, $csv->convertLine($line));
+				File::append($fileLocation, $csv->convert($row));
 			}
 
 			if (File::exists($fileLocation)) {

@@ -42,7 +42,7 @@
                     <small class="help-block">{{ $errors->first('correo') }}</small>
                 </div>
                 <div class="form-group col-xs-4 col-md-2" style="margin-top: 24px;">
-                    <button type="submit" class="btn btn-primary">Consultar</button>
+                    <button type="submit" class="btn btn-primary ladda-button" data-style="zoom-in">Consultar</button>
                     <button type="button" class="btn btn-default">Limpiar</button>
                 </div>
             </div>
@@ -119,5 +119,6 @@
 
 @section('text-script')
 <script>
+    Ladda.bind('button', {timeout: 2000});
 </script>
 @endsection

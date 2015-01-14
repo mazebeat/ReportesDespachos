@@ -161,15 +161,15 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
             } else {
                 $scope.gMensualFija = [
                     {
-                        tipodoc: "BO",
+                        tipodoc: "BOLETA",
                         total: 529801
                     },
                     {
-                        tipodoc: "FA",
+                        tipodoc: "FACTURA",
                         total: 131410
                     },
                     {
-                        tipodoc: "NC",
+                        tipodoc: "NOTA DE CREDITO",
                         total: 17799
                     }
                 ];
@@ -189,20 +189,12 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
             } else {
                 $scope.gMensualMovil = [
                     {
-                        tipodoc: "23",
+                        tipodoc: "CICLO",
                         total: 110709
                     },
                     {
-                        tipodoc: "53",
-                        total: 1
-                    },
-                    {
-                        tipodoc: "54",
+                        tipodoc: "NO CICLO",
                         total: 1081283
-                    },
-                    {
-                        tipodoc: "72",
-                        total: 35119
                     }
                 ];
                 //$scope.gMensualMovil = [];
@@ -214,6 +206,4 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
 }]);
 
 reportesDespacho.controller('homeController', ['$scope', '$http', function ($scope, $http) {
-
-
 }]);

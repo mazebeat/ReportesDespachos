@@ -37,7 +37,7 @@
 					</div>
 					<div class="form-group col-xs-1 col-md-1 col-lg-1" style="margin-top: 24px;">
 						{{ Form::label('consultar', 'Consultar', array('class' => 'control-label sr-only' )) }}
-						<button type="submit" class="btn btn-default">Consultar</button>
+						<button type="submit" class="btn btn-default ladda-button" data-style="zoom-in">Consultar</button>
 					</div>
 				</div>
 				{{ Form::close() }}
@@ -89,6 +89,8 @@
 
 @section('text-script')
 <script>
+	Ladda.bind('button', {timeout: 2000});
+
 	var ciclo_fija = [{'0001': '0001', '0004': '0004', '0008': '0008'}];
 	var ciclo_movil = [{'1': '1', '13': '13', '20': '20'}];
 	var data = [];
