@@ -70,7 +70,7 @@ class ReportesController extends \ApiController
 				case 'despacho movil':
 					$negocio = 'MOVIL';
 					$query   = "EXEC dbo.ObtenerDetalle_ex1 '%s', %s, %s, %s";
-					$ciclo = Input::get('ciclo') . explode('-', $fecha)[1] . substr(explode('-', $fecha)[0], -2);
+					$ciclo   = Input::get('ciclo') . explode('-', $fecha)[1] . substr(explode('-', $fecha)[0], -2);
 					$query   = sprintf($query, $negocio, $ciclo, $fecha->month, $fecha->year);
 					break;
 				case 're-despacho':
@@ -104,7 +104,21 @@ class ReportesController extends \ApiController
 			$stmt = $conn->prepare($query);
 			$stmt->execute();
 
+			$i = 0;
 			while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+				if ($i == 0) {
+					$titles = '';
+					$count  = count($row);
+					foreach (array_keys($row) as $key => $value) {
+						$titles .= $value;
+						if ($key + 1 != $count) {
+							$titles .= ';';
+						}
+					}
+					File::append($fileLocation, $titles . PHP_EOL);
+					$i++;
+					continue;
+				}
 				File::append($fileLocation, Functions::array_2_csv($row));
 			}
 
