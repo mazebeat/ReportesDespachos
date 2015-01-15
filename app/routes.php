@@ -1,6 +1,7 @@
 <?php
 ini_set('max_execution_time', 0);
-ini_set('memory_limit', '512M');
+ini_set('memory_limit', '1024M');
+error_reporting(E_ALL);
 
 /*
 |--------------------------------------------------------------------------
@@ -58,16 +59,3 @@ Route::group(array('before' => 'auth'), function () {
 	//	logout method
 	Route::get('logout', 'HomeController@logout');
 });
-//
-//Route::get('test', function () {
-//});
-//
-//Route::get('testODBC', function () {
-////	$conn = DB::connection()->getReadPdo();
-////	$conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-////	$stmt = $conn->prepare("EXEC dbo.obtenerDetalle_ex1 'FIJA', '0001', '03', '2014'");
-////	$stmt->execute();
-//	while ($row = DB::select("EXEC dbo.obtenerDetalle_ex1 'FIJA', '0001', '03', '2014'")) {
-//		File::append(public_path() . '/salida.txt', json_encode($row));
-//	}
-//});

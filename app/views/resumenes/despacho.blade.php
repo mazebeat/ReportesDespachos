@@ -115,7 +115,7 @@
 
 @section('text-script')
 <script>
-	Ladda.bind('button', {timeout: 2000});
+	Ladda.bind('button');
 
 	var ciclo_fija = [{'0001': '0001', '0004': '0004', '0008': '0008'}];
 	var ciclo_movil = [{'1': '1', '13': '13', '20': '20'}];

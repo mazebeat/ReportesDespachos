@@ -1,6 +1,7 @@
 <?php
 
 use App\Util\Functions;
+use Illuminate\Support\Facades\File;
 
 class ReportesController extends \ApiController
 {
@@ -24,6 +25,9 @@ class ReportesController extends \ApiController
 		return View::make('reportes.reporte')->with('files', $files)->with('message', $this->message);
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public function procesa_reporte()
 	{
 		//  Se  crea carpeta
@@ -66,6 +70,7 @@ class ReportesController extends \ApiController
 				case 'despacho movil':
 					$negocio = 'MOVIL';
 					$query   = "EXEC dbo.ObtenerDetalle_ex1 '%s', %s, %s, %s";
+					$ciclo = Input::get('ciclo') . explode('-', $fecha)[1] . substr(explode('-', $fecha)[0], -2);
 					$query   = sprintf($query, $negocio, $ciclo, $fecha->month, $fecha->year);
 					break;
 				case 're-despacho':
@@ -85,41 +90,41 @@ class ReportesController extends \ApiController
 			}
 		}
 
+		$fileLocation = $this->root . $nameFile . '.txt';
+
 		if (!File::exists($this->root . $nameFile . '.zip')) {
-			$csv = new \App\Util\arrayToCsv();
 
-			if (Cache::has($name)) {
-				$sql = Cache::get($name);
-			} else {
-				$sql = $this->store_query_cache($name, $query);
+			try {
+				$conn = new PDO('sqlsrv:server=10.185.30.243\INST1;Database=ReportesDespachos;MultipleActiveResultSets=false', 'emessuser', 'emessuser2013');
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$conn->setAttribute(constant('PDO::SQLSRV_ATTR_DIRECT_QUERY'), true);
+			} catch (Exception $e) {
+				die(print_r($e->getMessage()));
 			}
-
-			$fileLocation = $this->root . $nameFile . '.txt';
-
-			$conn = DB::connection()->getReadPdo();
-			$conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 			$stmt = $conn->prepare($query);
 			$stmt->execute();
-			$count = 0;
 
-			while ($row = $stmt->fetchAll(PDO::FETCH_ASSOC)) {
-				if ($count < 0) {
-					foreach ($row as $key => $value) {
-						File::append($fileLocation, $csv->convert($key));
-						$count++;
-					}
-				}
-				File::append($fileLocation, $csv->convert($row));
+			while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+				File::append($fileLocation, Functions::array_2_csv($row));
 			}
 
 			if (File::exists($fileLocation)) {
 				if (!File::exists($this->root . $nameFile . '.zip')) {
-					$zipper = new \Chumper\Zipper\Zipper;
-					$zipper->make($this->root . $nameFile . '.zip')->add($fileLocation);
-				} else {
-					unlink($fileLocation);
+					$zip = new ZipArchive();
+					if ($zip->open($this->root . $nameFile . '.zip', ZIPARCHIVE::CREATE) === true) {
+						$zip->addFile($fileLocation, $nameFile . '.txt');
+						$zip->close();
+						$result = true;
+					} else {
+						$result = false;
+					}
+
+					if ($result) {
+						unlink($fileLocation);
+					}
 				}
 			}
+			$conn = null;
 		} else {
 			$this->message[] = 'Archivo ya generado';
 		}
@@ -145,7 +150,7 @@ class ReportesController extends \ApiController
 		if (Cache::has($name)) {
 			$sql = Cache::get($name);
 		} else {
-			$query = "EXEC REPORTEESTADODESPACHO_EX1 '%s','%s'";
+			$query = "EXEC obc.REPORTEESTADODESPACHO_EX1 '%s','%s'";
 			$query = sprintf($query, $fecha->subHours(12)->format('Ymd h:\\00:\\00'), $fecha->format('Ymd h:\\59:\\59'));
 			try {
 				$sql = $this->store_query_cache($name, $query);
@@ -168,5 +173,4 @@ class ReportesController extends \ApiController
 
 		return View::make('reportes.despachos')->with('sql', $sql)->with('message', $this->message)->with(compact('time'));
 	}
-
 }
