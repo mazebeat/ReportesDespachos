@@ -3,11 +3,10 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
     $scope.error = false;
 
     $http.get('anual')
-        .then(function (data) {
+        .success(function (data) {
             if (data.ok) {
                 $scope.error = true;
                 $scope.message = '';
-                console.log(data);
                 angular.forEach(data.data, function (value, key) {
                     if (value.negocio == 'FIJA') {
                         $scope.anualfija = value.total;
@@ -30,7 +29,7 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
                 $scope.error = true;
                 $scope.mensual = data.data;
                 $scope.message = '';
-                angular.forEach($scope.anual, function (value, key) {
+                angular.forEach(data.data, function (value, key) {
                     if (value.negocio == 'FIJA') {
                         $scope.mensualfija = value.total;
                     }
