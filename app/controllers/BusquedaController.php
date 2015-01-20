@@ -10,10 +10,7 @@ class BusquedaController extends \ApiController
 
 	public function process()
 	{
-		$rules = array(
-			'negocio' => 'required',
-			'correo' => 'email'
-		);
+		$rules = array('negocio' => 'required', 'correo' => 'email');
 
 		$validator = Validator::make(Input::all(), $rules);
 
@@ -48,6 +45,5 @@ class BusquedaController extends \ApiController
 		$message = $this->get_message($sql);
 
 		return View::make('busquedas.individual')->with('sql', $sql)->with('message', $message)->withInput(Input::except(array('_token')));
-
 	}
 }
