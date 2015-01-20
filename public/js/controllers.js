@@ -58,10 +58,12 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
             campañas.push(negocio);
 
             if (arreglo.hasOwnProperty(id)) {
-                arreglo[id][v.negocio] = v.total;
+                arreglo[id][v.negocio] = parseInt(v.total);
             } else {
-                arreglo[id] = {'fecha': '01/' + fecha};
-                arreglo[id][v.negocio] = v.total;
+                var mes = fecha.split('/')[0];
+                var ano = fecha.split('/')[1];
+                arreglo[id] = {'fecha': AmCharts.formatDate(new Date(ano, parseInt(mes - 1), 1), "DD/MM/YYYY")};
+                arreglo[id][v.negocio] = parseInt(v.total);
             }
         });
 
@@ -100,11 +102,8 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
             if (data.ok) {
                 $scope.error = true;
                 $scope.message = '';
-
                 var dataTemp = $scope.serialChart(data.data);
-
                 $scope.gAnual = dataTemp.data;
-
                 var chartAnual = AmCharts.makeChart("gAnual",
                     {
                         "type": "serial",
@@ -129,7 +128,7 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
                             "axisAlpha": 0,
                             "fillAlpha": 0.05,
                             "fillColor": "#000000",
-                            "gridAlpha": 0
+                            "gridAlpha": 0,
                         },
                         "chartCursor": {
                             "categoryBalloonDateFormat": "DD MMMM YYYY"
@@ -141,7 +140,7 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
                         },
                         "graphs": [
                             {
-                                "balloonText": "<img src='http://www.amcharts.com/lib/3/images/car.png' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+                                "balloonText": "<span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
                                 "bullet": "round",
                                 "title": "Fija",
                                 "fillAlphas": 0,
@@ -149,7 +148,7 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
                                 "valueField": "FIJA"
                             },
                             {
-                                "balloonText": "<img src='http://www.amcharts.com/lib/3/images/car.png' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+                                "balloonText": "<span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
                                 "bullet": "round",
                                 "title": "Movil",
                                 "fillAlphas": 0,
