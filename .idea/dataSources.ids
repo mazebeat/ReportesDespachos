@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="SQL Server - ReportesDespachos@10.185.30.243\INST1" uuid="d3271772-f4d4-493f-aff2-282ffe389365">
+  <data-source name="ReportesDepachos/10.185.30.243" uuid="3619273e-4d09-4e27-8c21-b6d253d3f3f4">
     <database-info product="Microsoft SQL Server" version="10.00.4000" jdbc-version="4.0" driver-name="Microsoft JDBC Driver 4.0 for SQL Server" driver-version="4.0.2206.100">
       <extra-name-characters>$#@</extra-name-characters>
       <identifier-quote-string>&quot;</identifier-quote-string>
@@ -371,6 +371,37 @@
       <index name="3_INDEX_3" unique="true" columns="doc_instanceid"/>
       <index name="4_index_4" unique="true" columns="FechaEmi,NumeroCiclo,nombreArchivo"/>
     </table>
+    <table name="DetalleFijaTMP_HIST" schema="dbo" catalog="ReportesDespachos" type="TABLE">
+      <column name="FechaEmi" sqlType="date" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="FechaVen" sqlType="date" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="Fono" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Cliente" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Cuenta" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CodSegmento" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Monto" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TipoDoc" sqlType="varchar" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Folio" sqlType="varchar" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="DV" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Mail" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TipoDespacho" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Negocio" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Rut" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NombreCli" sqlType="varchar" precision="150" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EstadoEnvio" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FecEnvio" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NumeroCiclo" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CodRebote" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DescRebote" sqlType="varchar" precision="350" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FechaUltimaAct" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FechaLectura" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="doc_instanceid" sqlType="varchar" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombreArchivo" sqlType="varchar" precision="150" scale="0" nullable="true" jdbcType="12"/>
+      <index name="1_INDEX_1" unique="true" columns="FechaEmi,NumeroCiclo"/>
+      <index name="2_INDEX_2" unique="true" columns="FechaEmi,NumeroCiclo,TipoDoc"/>
+      <index name="2_INDEX_3" unique="true" columns="Cuenta,TipoDoc,Folio,Mail"/>
+      <index name="3_INDEX_3" unique="true" columns="doc_instanceid"/>
+      <index name="4_index_4" unique="true" columns="FechaEmi,NumeroCiclo,nombreArchivo"/>
+    </table>
     <table name="DetalleMovil" schema="dbo" catalog="ReportesDespachos" type="TABLE">
       <column name="FechaEmi" sqlType="date" precision="10" scale="0" nullable="true" jdbcType="91"/>
       <column name="FechaVen" sqlType="date" precision="10" scale="0" nullable="true" jdbcType="91"/>
@@ -438,13 +469,61 @@
       <index name="4_INDEX_4" unique="true" columns="doc_instanceid"/>
       <index name="I_INDEX_1" unique="true" columns="FechaEmi,NumeroCiclo"/>
     </table>
+    <table name="DetalleMovilTMP_HIST" schema="dbo" catalog="ReportesDespachos" type="TABLE">
+      <column name="FechaEmi" sqlType="date" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="FechaVen" sqlType="date" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="Fono" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Cliente" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Cuenta" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CodSegmento" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Monto" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TipoDoc" sqlType="varchar" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Folio" sqlType="varchar" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="DV" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Mail" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TipoDespacho" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Negocio" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Rut" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NombreCli" sqlType="varchar" precision="150" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EstadoEnvio" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FecEnvio" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NumeroCiclo" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CodRebote" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DescRebote" sqlType="varchar" precision="350" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FechaUltimaAct" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FechaLectura" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="doc_instanceid" sqlType="varchar" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombreArchivo" sqlType="varchar" precision="150" scale="0" nullable="true" jdbcType="12"/>
+      <index name="2_INDEX_2" unique="true" columns="FechaEmi,NumeroCiclo,TipoDoc"/>
+      <index name="3_INDEX_3" unique="true" columns="Cuenta,TipoDoc,Folio,Mail"/>
+      <index name="4_INDEX_4" unique="true" columns="doc_instanceid"/>
+      <index name="I_INDEX_1" unique="true" columns="FechaEmi,NumeroCiclo"/>
+    </table>
     <table name="DetalleRedespacho" schema="dbo" catalog="ReportesDespachos" type="TABLE">
-      <column name="IdentificadorCliente" sqlType="varchar" precision="50" scale="0" nullable="false" jdbcType="12"/>
-      <column name="FechaEnvio" sqlType="datetime" precision="23" scale="3" nullable="false" jdbcType="93"/>
-      <column name="Mail" sqlType="varchar" precision="50" scale="0" nullable="false" jdbcType="12"/>
-      <column name="Asunto" sqlType="varchar" precision="1000" scale="0" nullable="false" jdbcType="12"/>
-      <column name="doc_Instance_id" sqlType="varchar" precision="32" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="PK_DestalleRedespacho" columns="doc_Instance_id"/>
+      <column name="FechaEmi" sqlType="date" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="FechaVen" sqlType="date" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="Fono" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Cliente" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Cuenta" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CodSegmento" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Monto" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TipoDoc" sqlType="varchar" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Folio" sqlType="varchar" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="DV" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Mail" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TipoDespacho" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Negocio" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Rut" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NombreCli" sqlType="varchar" precision="150" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EstadoEnvio" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NumeroCiclo" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CodRebote" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DescRebote" sqlType="varchar" precision="350" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FechaUltimaAct" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FechaLectura" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="doc_instanceid" sqlType="varchar" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombreArchivo" sqlType="varchar" precision="150" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FecEnvio" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
     </table>
     <table name="Lecturas" schema="dbo" catalog="ReportesDespachos" type="TABLE">
       <column name="FechaUltimaAct" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
@@ -468,6 +547,11 @@
       <column name="QDoc" sqlType="varchar" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
       <column name="TipoDoc" sqlType="varchar" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
     </table>
+    <table name="TiemposDespachos" schema="dbo" catalog="ReportesDespachos" type="TABLE">
+      <column name="Ciclo" sqlType="varchar" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="FechaInicio" sqlType="datetime" precision="23" scale="3" nullable="false" jdbcType="93"/>
+      <column name="FechaFin" sqlType="datetime" precision="23" scale="3" nullable="false" jdbcType="93"/>
+    </table>
     <table name="TipoUsuario" schema="dbo" catalog="ReportesDespachos" type="TABLE">
       <column name="idTipoUsuario" sqlType="int" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="Descripcion" sqlType="varchar" precision="50" scale="0" nullable="false" jdbcType="12"/>
@@ -484,7 +568,7 @@
       <column name="rut" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12"/>
       <column name="mail" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12"/>
       <column name="ultimaconexion" sqlType="timestamp" precision="8" scale="0" nullable="true" jdbcType="-2" version="true"/>
-      <column name="remember_token" sqlType="varchar" precision="150" scale="0" nullable="true" jdbcType="12"/>
+      <column name="remember_token" sqlType="nchar" precision="100" scale="0" nullable="true" jdbcType="-15"/>
       <primary-key name="PK_Usuarios" columns="idUsuario"/>
     </table>
     <table name="sysdiagrams" schema="dbo" catalog="ReportesDespachos" type="TABLE">
@@ -5023,6 +5107,18 @@
         <parameter name="@RETURN_VALUE" sqlType="int" precision="10" scale="0" nullable="false" jdbcType="4" type="5" index="0"/>
       </prototype>
     </procedure>
+    <procedure name="GetFinDespacho" schema="dbo" catalog="ReportesDespachos" type="2">
+      <prototype>
+        <parameter name="@Ciclo" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
+        <parameter name="@RETURN_VALUE" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12" type="5" index="0"/>
+      </prototype>
+    </procedure>
+    <procedure name="GetIniDespacho" schema="dbo" catalog="ReportesDespachos" type="2">
+      <prototype>
+        <parameter name="@Ciclo" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
+        <parameter name="@RETURN_VALUE" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12" type="5" index="0"/>
+      </prototype>
+    </procedure>
     <procedure name="GetRegistros" schema="dbo" catalog="ReportesDespachos" type="2">
       <prototype>
         <parameter name="@Negocio" sqlType="varchar" precision="1" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
@@ -5042,11 +5138,17 @@
         <parameter name="@RETURN_VALUE" sqlType="int" precision="10" scale="0" nullable="false" jdbcType="4" type="5" index="0"/>
       </prototype>
     </procedure>
+    <procedure name="InsertaTiempoCiclo" schema="dbo" catalog="ReportesDespachos" type="2">
+      <prototype>
+        <parameter name="@CICLO" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
+        <parameter name="@RETURN_VALUE" sqlType="int" precision="10" scale="0" nullable="false" jdbcType="4" type="5" index="0"/>
+      </prototype>
+    </procedure>
     <procedure name="OBTIENELEIDOS" schema="dbo" catalog="ReportesDespachos" type="2">
       <prototype>
         <parameter name="@Negocio" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
-        <parameter name="@desde" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="2"/>
-        <parameter name="@hasta" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="3"/>
+        <parameter name="@mes" sqlType="int" precision="10" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
+        <parameter name="@ANIO" sqlType="int" precision="10" scale="0" nullable="true" jdbcType="4" type="1" index="3"/>
         <parameter name="@CICLO" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12" type="1" index="4"/>
         <parameter name="@TIPODOC" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12" type="1" index="5"/>
         <parameter name="@RETURN_VALUE" sqlType="int" precision="10" scale="0" nullable="true" jdbcType="4" type="5" index="0"/>
@@ -5065,8 +5167,8 @@
     <procedure name="OBTIENEREBOTES" schema="dbo" catalog="ReportesDespachos" type="2">
       <prototype>
         <parameter name="@Negocio" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
-        <parameter name="@desde" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="2"/>
-        <parameter name="@hasta" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="3"/>
+        <parameter name="@mes" sqlType="int" precision="10" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
+        <parameter name="@ANIO" sqlType="int" precision="10" scale="0" nullable="true" jdbcType="4" type="1" index="3"/>
         <parameter name="@CICLO" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12" type="1" index="4"/>
         <parameter name="@TipoDoc" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12" type="1" index="5"/>
         <parameter name="@RETURN_VALUE" sqlType="int" precision="10" scale="0" nullable="true" jdbcType="4" type="5" index="0"/>
@@ -5173,6 +5275,12 @@
         <parameter name="@delim" sqlType="varchar" precision="1" scale="0" nullable="true" jdbcType="12" type="1" index="2"/>
         <parameter name="@index" sqlType="int" precision="10" scale="0" nullable="true" jdbcType="4" type="1" index="3"/>
         <parameter name="@RETURN_VALUE" sqlType="varchar" precision="500" scale="0" nullable="true" jdbcType="12" type="5" index="0"/>
+      </prototype>
+    </procedure>
+    <procedure name="UpdateTiempoCiclo" schema="dbo" catalog="ReportesDespachos" type="2">
+      <prototype>
+        <parameter name="@CICLO" sqlType="varchar" precision="50" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
+        <parameter name="@RETURN_VALUE" sqlType="int" precision="10" scale="0" nullable="false" jdbcType="4" type="5" index="0"/>
       </prototype>
     </procedure>
     <procedure name="busquedaIndividual" schema="dbo" catalog="ReportesDespachos" type="2">
@@ -5307,19 +5415,13 @@
     </procedure>
     <procedure name="obtenerDetalleRedespacho" schema="dbo" catalog="ReportesDespachos" type="2">
       <prototype>
-        <parameter name="@DIAP" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
-        <parameter name="@DIAU" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="2"/>
+        <parameter name="@negocio" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
+        <parameter name="@DIAP" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="2"/>
+        <parameter name="@DIAU" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="3"/>
         <parameter name="@RETURN_VALUE" sqlType="int" precision="10" scale="0" nullable="false" jdbcType="4" type="5" index="0"/>
       </prototype>
     </procedure>
     <procedure name="obtenerDetalleRedespacho_ex1" schema="dbo" catalog="ReportesDespachos" type="2">
-      <prototype>
-        <parameter name="@DIAP" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
-        <parameter name="@DIAU" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="2"/>
-        <parameter name="@RETURN_VALUE" sqlType="int" precision="10" scale="0" nullable="false" jdbcType="4" type="5" index="0"/>
-      </prototype>
-    </procedure>
-    <procedure name="obtenerDetalleReenvio" schema="dbo" catalog="ReportesDespachos" type="2">
       <prototype>
         <parameter name="@DIAP" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="1"/>
         <parameter name="@DIAU" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12" type="1" index="2"/>

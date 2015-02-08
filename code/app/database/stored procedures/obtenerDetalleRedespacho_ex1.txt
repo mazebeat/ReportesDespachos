@@ -1,0 +1,50 @@
+DROP PROCEDURE dbo.obtenerDetalleRedespacho_ex1;
+GO ;
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- =============================================
+-- Author:		FGARAY
+-- Create date: 10/12/2014
+-- Description:	Obtiene el resumen del redespacho
+-- =============================================
+CREATE PROCEDURE [dbo].[obtenerDetalleRedespacho_ex1]
+
+    @DIAP VARCHAR(10),
+    @DIAU VARCHAR(10)
+
+AS
+  BEGIN
+
+    SELECT
+      om.customer_id,
+      convert(VARCHAR(50), om.date_send, 121) AS 'date_send',
+      om.sentTo,
+      om.subject,
+      CASE
+      WHEN FechaLectura IS NULL THEN ('NULL')
+      ELSE (l.FechaLectura)
+      END                                     AS fechalectura,
+      CASE
+      WHEN FechaUltimaAct IS NULL THEN ('NULL')
+      ELSE (l.FechaUltimaAct)
+      END                                     AS fechaultimaact,
+      CASE
+      WHEN CodRebote IS NULL THEN ('NULL')
+      ELSE (r.CodRebote)
+      END                                     AS codrebote,
+      CASE
+      WHEN DescRebote IS NULL THEN ('NULL')
+      ELSE (r.DescRebote)
+      END                                     AS descrebote,
+      om.doc_instance_id
+    FROM emessaging.dbo.outbound_message AS om WITH ( NOLOCK )
+      LEFT JOIN ReportesDespachos.dbo.Rebotes AS r WITH ( NOLOCK )
+        ON r.doc_instanceid = om.doc_instance_id
+      LEFT JOIN ReportesDespachos.dbo.Lecturas AS l WITH ( NOLOCK )
+        ON l.doc_instanceid = om.doc_instance_id
+    WHERE om.outbound_profile_id IN ('6150', '6151', '6152', '6153', '6154')
+          AND om.outbound_message_status IN ('DELIVERED_SUCCESSFULLY')
+          AND convert(VARCHAR(50), om.date_send, 121) BETWEEN @DIAP AND @DIAU
+    ORDER BY om.date_send
+  END;
+GO ;
