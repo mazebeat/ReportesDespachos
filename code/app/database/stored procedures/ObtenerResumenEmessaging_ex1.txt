@@ -1,0 +1,53 @@
+DROP PROCEDURE dbo.ObtenerResumenEmessaging_ex1;
+GO ;
+;
+-- =============================================
+-- Author:		FGARAY
+-- Create date: 09/12/2014
+-- Description:	Obtiene el resumen de la base Emessaging
+-- =============================================
+CREATE PROCEDURE [dbo].[ObtenerResumenEmessaging_ex1]
+
+    @profile    VARCHAR(50),
+    @fechadesde VARCHAR(50),
+    @fechahasta VARCHAR(50)
+
+AS
+  BEGIN
+    SELECT
+      op.name,
+      sum(CASE WHEN outbound_Message_Status = 'TEMPORARY_FAILURE' THEN 1
+          ELSE 0 END)                 AS tempFailure,
+      sum(CASE WHEN outbound_Message_Status = 'CONTENT_FAILURE' THEN 1
+          ELSE 0 END)                 AS contentFailure,
+      sum(CASE WHEN outbound_Message_Status = 'PERMANENT_DELIVERY_FAILURE' THEN 1
+          ELSE 0 END)                 AS permFailure,
+      sum(CASE WHEN outbound_Message_Status = 'UNKNOWN_DELIVERY_FAILURE' THEN 1
+          ELSE 0 END)                 AS unkFailure,
+      count(DISTINCT (CASE WHEN outbound_message_status = 'DELIVERED_SUCCESSFULLY' AND
+                                date_response IS NOT NULL THEN inbound_profile_id
+                      ELSE NULL END)) AS multreplied,
+      sum(CASE WHEN (outbound_Message_Status = 'DELIVERED_SUCCESSFULLY' OR outbound_Message_Status = 'OUT_OF_OFFICE')
+                    AND date_opened IS NOT NULL THEN 1
+          ELSE 0 END)                 AS opened,
+      sum(CASE WHEN outbound_Message_Status = 'OUT_OF_OFFICE' THEN 1
+          ELSE 0 END)                 AS outOfOffice,
+      sum(1)                          AS total
+    FROM emessaging.dbo.outbound_message
+      WITH ( NOLOCK )
+      LEFT OUTER JOIN emessaging.dbo.workflow_item workflowit1_ WITH ( NOLOCK )
+        ON workflowit1_.id = workflowitem_id
+      LEFT OUTER JOIN emessaging.dbo.msg_index msgindex2_ WITH ( NOLOCK )
+        ON msgindex2_.id = workflowit1_.msgIndex_id
+      INNER JOIN emessaging.dbo.out_profile AS op WITH ( NOLOCK )
+        ON op.id = outbound_profile_id
+    WHERE outbound_profile_id IN (SELECT id
+                                  FROM emessaging.dbo.out_profile WITH ( NOLOCK )
+                                  WHERE name LIKE (@profile + '%')
+    )
+          AND date_send BETWEEN cast(@fechadesde AS DATETIME) AND cast(@fechahasta AS DATETIME)
+    GROUP BY op.name
+    ORDER BY op.name
+
+  END;
+GO ;

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="1670742982">
-    <data-source source="LOCAL" name="SQL Server - ReportesDespachos@10.185.30.243\INST1" uuid="d3271772-f4d4-493f-aff2-282ffe389365">
+  <component name="DataSourceManagerImpl" format="xml" hash="2733639952">
+    <data-source source="LOCAL" name="ReportesDepachos/10.185.30.243" uuid="3619273e-4d09-4e27-8c21-b6d253d3f3f4">
       <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <auto-commit>false</auto-commit>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
       <jdbc-url>jdbc:sqlserver://10.185.30.243\INST1;databaseName=ReportesDespachos</jdbc-url>
-      <driver-properties>
-        <property name="integratedSecurity" value="false" />
-        <property name="serverName" value="10.185.30.243\INST1" />
-      </driver-properties>
       <libraries />
     </data-source>
   </component>

@@ -1,0 +1,72 @@
+DROP PROCEDURE dbo.busquedaIndividual_ex1;
+GO;
+-- =============================================
+-- Author:		FGARAY
+-- Create date: 09/12/2014
+-- Description:	Realiza la busqueda de los documentos en forma detallada segun parametros de entrada
+
+-- =============================================
+--- exec busquedaIndividual_ex1 'FIJA', 999995900, NULL, NULL, 'user42@recipients07.cl'
+--- exec busquedaIndividual_ex1 @negocio, @cuenta, @tipodoc, @folio, @correo
+-- =============================================
+CREATE PROCEDURE [dbo].[busquedaIndividual_ex1]
+
+	@Negocio varchar(10),
+	@Cuenta varchar(10),
+	@TipoDoc varchar(3),
+	@Folio varchar(15),
+	@Correo varchar(30)
+
+AS
+BEGIN 
+
+	 IF(@Negocio='FIJA')
+			 Begin
+					select
+						@Negocio as negocio, 
+						cuenta,
+						cliente,
+						folio,
+						codsegmento,
+						numerociclo,
+						tipodoc,
+						fechaemi ,
+						fechaven ,
+						mail,								   
+						fecenvio,
+						fechalectura,
+						estadoenvio,
+						codrebote+descrebote as observaciones
+						from DetalleFijaTmp WITH(NOLOCK)
+						where cuenta= isnull(@Cuenta,cuenta)
+						and tipodoc= isnull(@TipoDoc,tipodoc)
+						and folio= isnull(@Folio,folio)
+						and mail= isnull(@Correo,mail)
+			  END
+			  
+	IF(@Negocio='MOVIL')
+			 Begin
+					select
+						@Negocio as negocio, 
+						cuenta,
+						cliente,
+						folio,
+						codsegmento,
+						numerociclo,
+						tipodoc,
+						fechaemi,
+						fechaven ,
+						mail,
+						fecenvio,
+						fechalectura,
+						estadoenvio,
+						codrebote+descrebote as observaciones
+						from DetalleMovilTmp WITH(NOLOCK)
+						where cuenta= isnull(@Cuenta,cuenta)
+						and	tipodoc= isnull(@TipoDoc,tipodoc)
+						and folio= isnull(@Folio,folio)
+						and	mail= isnull(@Correo,mail)
+			  END
+
+END;
+GO;
