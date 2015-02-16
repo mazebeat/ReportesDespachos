@@ -20,19 +20,19 @@ class HomeController extends \ApiController
 
 		$rules = array(
 			'usuario'    => 'required|exists:Usuarios',
-			'contraseña' => 'required|min:3'
+			'contrasena' => 'required|min:3'
 		);
 
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator->fails()) {
 			return Redirect::back()->withErrors($validator)->withInput(Input::except(array(
-				                                                                         'contraseña',
+				                                                                         'contrasena',
 				                                                                         '_token'
 			                                                                         )));
 		}
 
-		$user = User::where('usuario', Input::get('usuario'))->where('pwdusuario', Input::get('contraseña'))->first();
+		$user = User::where('usuario', Input::get('usuario'))->where('pwdusuario', Input::get('contrasena'))->first();
 		if ($user) {
 			$id = $user->idUsuario;
 			if (Auth::loginUsingId($id)) {
@@ -44,7 +44,7 @@ class HomeController extends \ApiController
 		}
 		else {
 			return Redirect::back()->withErrors(array('Usuario incorrecto'))->withInput(Input::except(array(
-				                                                                                          'contraseña',
+				                                                                                          'contrasena',
 				                                                                                          '_token'
 			                                                                                          )));
 		}

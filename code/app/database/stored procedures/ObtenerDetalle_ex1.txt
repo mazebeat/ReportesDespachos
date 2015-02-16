@@ -1,0 +1,121 @@
+DROP PROCEDURE dbo.obtenerDetalle_ex1;
+GO ;
+-- =============================================
+-- Author:		FGARAY
+-- Create date: 10/12/2014
+-- Description:	<Description,,>
+
+---exec obtenerDetalle_ex1 'FIJA', '0001', '11', '2014'
+---exec obtenerDetalle_ex1 'MOVIL', '130314', '03', '2014'
+-- =============================================
+CREATE PROCEDURE [dbo].[obtenerDetalle_ex1]
+
+    @Negocio VARCHAR(10),
+    @CICLO   INT,
+    @MES     INT,
+    @AÑO     INT
+
+AS
+  BEGIN
+
+
+    DECLARE @fecha  VARCHAR(8),
+            @desde  VARCHAR(8),
+            @hasta  VARCHAR(8)
+    DECLARE @mydate DATETIME
+
+    IF (@mes <> 10 AND @mes <> 11 AND @mes <> 12)
+      BEGIN
+        SET @fecha = Convert(VARCHAR(MAX), @AÑO) + '0' + Convert(VARCHAR(MAX), @mes) + '01'
+
+      END
+    ELSE
+      BEGIN
+        SET @fecha = Convert(VARCHAR(MAX), @AÑO) + Convert(VARCHAR(MAX), @mes) + '01'
+      END
+
+
+    SET @mydate = @fecha
+
+    SET @desde = CONVERT(VARCHAR(25), DATEADD(DD, -(DAY(@mydate) - 1), @mydate), 112)
+    SET @hasta = CONVERT(VARCHAR(25), DATEADD(DD, -(DAY(DATEADD(MM, 1, @mydate))), DATEADD(MM, 1, @mydate)), 112)
+
+    IF (@Negocio = 'FIJA')
+      BEGIN
+
+--SELECT * FROM  DetalleFijaTmp where FechaEmi between  '2014-06-01' and '2014-06-30'
+
+        SELECT
+          tmp.FechaEmi                              AS 'fechaemi',
+          tmp.FechaVen                              AS 'fechaven',
+          tmp.Fono                                  AS 'fono',
+          tmp.Cliente                               AS 'cliente',
+          tmp.Cuenta                                AS 'cuenta',
+          tmp.CodSegmento                           AS 'codsegmento',
+          tmp.Monto                                 AS 'monto',
+          tmp.TipoDoc                               AS 'tipodoc',
+          tmp.Folio                                 AS 'folio',
+          tmp.DV                                    AS 'dv',
+          tmp.Mail                                  AS 'mail',
+          tmp.TipoDespacho                          AS 'tipodespacho',
+          tmp.Negocio                               AS 'tipodespacho',
+          tmp.Rut                                   AS 'rut',
+          tmp.NombreCli                             AS 'nombrecli',
+          tmp.EstadoEnvio                           AS 'estadoenvio',
+          tmp.FecEnvio                              AS 'fecenvio',
+          tmp.NumeroCiclo                           AS 'numerocliclo',
+          IsNull(Reb.CodRebote, 'SIN REBOTE')       AS [Cod. Rebote],
+          IsNull(Reb.DescRebote, 'SIN REBOTE')      AS [Desc. Rebote],
+          IsNull(Lec.FechaUltimaAct, 'SIN LECTURA') AS [Fecha Ultima Actualizacion],
+          IsNull(Lec.FechaLectura, 'SIN LECTURA')   AS [Fecha Lectura],
+          tmp.doc_instanceid,
+          tmp.nombreArchivo
+        FROM DetalleFijaTmp tmp WITH ( NOLOCK )
+          LEFT JOIN Lecturas Lec WITH ( NOLOCK )
+            ON Lec.doc_instanceid = tmp.doc_instanceid
+          LEFT JOIN Rebotes Reb WITH ( NOLOCK )
+            ON Reb.doc_instanceid = tmp.doc_instanceid
+        WHERE tmp.FechaEmi BETWEEN (@desde) AND (@hasta)
+              AND NumeroCiclo = ISNULL(@CICLO, NumeroCiclo)
+
+      END
+
+    IF (@Negocio = 'MOVIL')
+      BEGIN
+
+        SELECT
+          tmp.FechaEmi,
+          tmp.FechaVen,
+          tmp.Fono,
+          tmp.Cliente,
+          tmp.Cuenta,
+          tmp.CodSegmento,
+          tmp.Monto,
+          tmp.TipoDoc,
+          tmp.Folio,
+          tmp.DV,
+          tmp.Mail,
+          tmp.TipoDespacho,
+          tmp.Negocio,
+          tmp.Rut,
+          tmp.NombreCli,
+          tmp.EstadoEnvio,
+          tmp.FecEnvio,
+          tmp.NumeroCiclo,
+          IsNull(Reb.CodRebote, 'SIN REBOTE')       AS [Cod. Rebote],
+          IsNull(Reb.DescRebote, 'SIN REBOTE')      AS [Desc. Rebote],
+          IsNull(Lec.FechaUltimaAct, 'SIN LECTURA') AS [Fecha Ultima Actualizacion],
+          IsNull(Lec.FechaLectura, 'SIN LECTURA')   AS [Fecha Lectura],
+          tmp.doc_instanceid,
+          tmp.nombreArchivo
+        FROM DetalleMovilTMP tmp WITH ( NOLOCK )
+          LEFT JOIN Lecturas Lec WITH ( NOLOCK )
+            ON Lec.doc_instanceid = tmp.doc_instanceid
+          LEFT JOIN Rebotes Reb WITH ( NOLOCK )
+            ON Reb.doc_instanceid = tmp.doc_instanceid
+        WHERE tmp.FechaEmi BETWEEN (@desde) AND (@hasta)
+              AND NumeroCiclo = ISNULL(@CICLO, NumeroCiclo)
+
+      END
+  END;
+GO ;

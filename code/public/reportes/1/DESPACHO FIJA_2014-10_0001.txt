@@ -1,2 +1,0 @@
-HResultado 0xFFFFFFFF, nivel 16, estado 1
-SQL Server Network Interfaces: Error Locating Server/Instance Specified [xFFFFFFFF]. 

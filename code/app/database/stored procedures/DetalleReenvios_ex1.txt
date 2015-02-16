@@ -1,0 +1,52 @@
+DROP PROCEDURE dbo.DetalleReenvios_ex1;
+GO ;
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+---exec dbo.DetalleReenvios_ex1 '1', '20140301','20140330'
+-- =============================================
+CREATE PROCEDURE [dbo].[DetalleReenvios_ex1]
+
+    @negocio VARCHAR(1),
+    @DIAP    VARCHAR(10),
+    @DIAU    VARCHAR(10)
+
+AS
+  BEGIN
+    SELECT
+      idCliente,
+      customer_id,
+--CASE WHEN cuenta='' THEN (select 'NULL') ELSE (select cuenta) END as cuenta,
+      CASE
+      WHEN tipoDocumentoUnificado = 23 THEN ('BOLETA')
+      WHEN tipoDocumentoUnificado = 24 THEN ('FACTURA')
+      END    AS tipoDocumentoUnificado,
+      fechaEmision,
+      folio,
+      email,
+      'NULL' AS email_seg_cont,
+      CASE
+      WHEN outbound_message_status = 'CONTENT_FAILURE'
+      THEN ('NULL')
+      ELSE (SELECT convert(VARCHAR(50), date_send, 121))
+      END    AS date_send,
+      fono,
+      CASE
+      WHEN negocio = 1 THEN ('FIJA')
+      WHEN negocio = 2 THEN ('MOVIL')
+      END    AS negocio
+    FROM Procesos.dbo.request_not
+      WITH ( NOLOCK )
+      LEFT JOIN emessaging.dbo.outbound_message
+      WITH ( NOLOCK )
+        ON dbo.Splitter(subject, ' ', 4) = folio
+    WHERE outbound_profile_id IN ('6001')
+          AND negocio = @negocio
+          AND date_send BETWEEN @DIAP + ' 00:00:00' AND @DIAU + ' 23:59:59'
+    GROUP BY idCliente, date_send, cuenta, tipoDocumentoUnificado, fechaEmision, folio, email, fono, negocio,
+      outbound_message_status, customer_id
+
+  END;
+GO ;
