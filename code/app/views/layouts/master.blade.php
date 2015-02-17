@@ -37,6 +37,7 @@
 @include('layouts.master_modules.menu')
 <div class="wrapper">
 	@yield('content')
+	<div class="clearfix"></div>
 </div>
 <footer class="sticky-footer">
 	@include('layouts.master_modules.footer')

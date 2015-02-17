@@ -82,7 +82,7 @@
 	<script>
 		var chartMensualFija = new AmCharts.AmPieChart();
 		var chartMensualMovil = new AmCharts.AmPieChart();
-
+		var chartAnual = new AmCharts.AmSerialChart();
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 			var news = $(e.target);
 			var olds = $(e.relatedTarget);

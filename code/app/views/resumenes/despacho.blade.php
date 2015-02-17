@@ -66,12 +66,12 @@
 								@foreach($sql as $key => $value)
 									<tr>
 										<td>{{ $value->negocio }}</td>
-										<td class="text-right">{{ $value->fecha }}</td>
-										<td class="text-right">{{ $value->ciclo }}</td>
-										<td class="text-right">{{ $value->tipodoc }}</td>
-										<td class="text-right">{{ $value->qenvios }}</td>
-										<td class="text-right">{{ $value->rebotes }}</td>
-										<td class="text-right">{{ $value->leidos }}</td>
+										<td>{{ $value->fecha }}</td>
+										<td>{{ $value->ciclo }}</td>
+										<td>{{ $value->tipodoc }}</td>
+										<td>{{ $value->qenvios }}</td>
+										<td>{{ $value->rebotes }}</td>
+										<td>{{ $value->leidos }}</td>
 									</tr>
 								@endforeach
 								</tbody>
@@ -108,10 +108,6 @@
 
 		.summary td {
 			font-weight: bold;
-		}
-
-		.summary td:not(:first-child) {
-			text-align: right;
 		}
 	</style>
 @endsection

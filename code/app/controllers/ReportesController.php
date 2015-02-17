@@ -75,7 +75,7 @@ class ReportesController extends \ApiController
 		$fecfin       = new Carbon($fecha);
 		$fecfin       = $fecfin->endOfMonth()->format('Ymd');
 		$ciclo        = Input::get('ciclo');
-		$instancia    = 'DUF2409\INST1';
+		$instancia    = Config::get('database.connections.sqlsrv.host');  // 'DUF2409\INST1'
 		$name         = $negocio . Input::get('fecha') . $ciclo;
 		$nameFile     = $negocio . '_' . Input::get('fecha') . '_' . $ciclo;
 		$fileLocation = $this->root . $nameFile . '.txt';
@@ -86,32 +86,32 @@ class ReportesController extends \ApiController
 					$negocio = 'FIJA';
 					$spname  = 'ReportesDespachos.dbo.ObtenerDetalle_ex1';
 					$sql     = app_path('database/Generadocumento' . 'ObtenerDetalle_ex1.sql');
-					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -v negocio="' . $negocio . '" ciclo="' . $ciclo . '" mes="' . $fecha->month . '" ano="' . $fecha->year . '" spname=' . $spname;
+					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -u -v negocio="' . $negocio . '" ciclo="' . $ciclo . '" mes="' . $fecha->month . '" ano="' . $fecha->year . '" spname=' . $spname;
 					break;
 				case 'despacho movil':
 					$negocio = 'MOVIL';
 					$spname  = 'ReportesDespachos.dbo.ObtenerDetalle_ex1';
 					$sql     = app_path('database/Generadocumento' . 'ObtenerDetalle_ex1.sql');
 					$ciclo   = Input::get('ciclo') . explode('-', $fecha)[1] . substr(explode('-', $fecha)[0], -2);
-					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -v negocio="' . $negocio . '" ciclo="' . $ciclo . '" mes="' . $fecha->month . '" ano="' . $fecha->year . '" spname=' . $spname;
+					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -u -v negocio="' . $negocio . '" ciclo="' . $ciclo . '" mes="' . $fecha->month . '" ano="' . $fecha->year . '" spname=' . $spname;
 					break;
 				case 're-despacho':
 					$negocio = 'FIJA';
 					$spname  = 'ReportesDespachos.dbo.ObtenerDetalleRedespacho_ex1';
 					$sql     = app_path('database/Generadocumento' . 'ObtenerDetalleRedespacho_ex1.sql');
-					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -v fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
+					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -u -v fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
 					break;
 				case 're-envio fija':
 					$negocio = '1';
 					$spname  = 'ReportesDespachos.dbo.DetalleReenvios_ex1';
 					$sql     = app_path('database/Generadocumento' . 'DetalleReenvios_ex1.sql');
-					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -v negocio="' . $negocio . '" fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
+					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -u -v negocio="' . $negocio . '" fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
 					break;
 				case 're-envio movil':
 					$negocio = '2';
 					$spname  = 'ReportesDespachos.dbo.DetalleReenvios_ex1';
 					$sql     = app_path('database/Generadocumento' . 'DetalleReenvios_ex1.sql');
-					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -v negocio="' . $negocio . '" fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
+					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -u -v negocio="' . $negocio . '" fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
 					break;
 			}
 			$cmd = $this->store_query_cache($name, $cmd, 5, false);
@@ -177,7 +177,7 @@ class ReportesController extends \ApiController
 			$sql = Cache::get($name);
 		}
 		else {
-			$query = "EXEC obc.REPORTEESTADODESPACHO_EX1 '%s','%s'";
+			$query = "EXEC dbo.REPORTEESTADODESPACHO_EX1 '%s','%s'";
 			$query = sprintf($query, $fecha->subHours(12)->format('Ymd h:\\00:\\00'), $fecha->format('Ymd h:\\59:\\59'));
 			try {
 				$sql = $this->store_query_cache($name, $query);

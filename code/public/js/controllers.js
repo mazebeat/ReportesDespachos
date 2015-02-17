@@ -103,13 +103,36 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
                 $scope.error = true;
                 $scope.message = '';
                 var dataTemp = $scope.serialChart(data.data);
-                $scope.gAnual = dataTemp.data;
+
+                function parseDate(dateString) {
+                    var dateArray = dateString.split("/");
+                    var date = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0];
+                    console.info(AmCharts.stringToDate(date, "YYYY-MM-DD"));
+                    return AmCharts.formatDate(new Date(dateArray[2], dateArray[1] - 1, dateArray[0]), "YYYY-MM-DD");
+                }
+
+                $scope.gAnual = [];
+
+                angular.forEach(dataTemp.data, function (v, k) {
+                    var temp = [];
+                    temp.FIJA = v.FIJA;
+                    temp.MOVIL = v.MOVIL;
+                    temp.fecha = parseDate(v.fecha);
+                    $scope.gAnual.push(temp);
+                });
+
+                function comp(a, b) {
+                    return new Date(a.fecha).getTime() - new Date(b.fecha).getTime();
+                }
+
+                $scope.gAnual.sort(comp);
+
                 var chartAnual = AmCharts.makeChart("gAnual",
                     {
                         "type": "serial",
-                        "pathToImages": "/js/amcharts/images/",
+                        "pathToImages": "../js/amcharts/images/",
                         "categoryField": "fecha",
-                        "dataDateFormat": "DD/MM/YYYY",
+                        "dataDateFormat": "YYYY-MM-DD",
                         "autoMarginOffset": 0,
                         "marginLeft": 0,
                         "plotAreaBorderColor": "#FFFFFF",
@@ -122,13 +145,13 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
                         "trendLines": [],
                         "categoryAxis": {
                             "startOnAxis": true,
-                            "minPeriod": "MM",
                             "parseDates": true,
+                            "minPeriod": "MM",
                             "gridPosition": "start",
                             "axisAlpha": 0,
                             "fillAlpha": 0.05,
                             "fillColor": "#000000",
-                            "gridAlpha": 0,
+                            "gridAlpha": 0
                         },
                         "chartCursor": {
                             "categoryBalloonDateFormat": "DD MMMM YYYY"
@@ -171,10 +194,10 @@ reportesDespacho.controller('graphsController', ['$scope', '$http', 'apiFactory'
                             }
                         ],
                         "exportConfig": {
-                            "menuTop": "0px",
-                            "menuItems": [{
-                                "icon": '/js/amcharts/images/export.png',
-                                "format": 'png'
+                            menuTop: "0px",
+                            menuItems: [{
+                                icon: '../js/amcharts/images/export.png',
+                                format: 'png'
                             }]
                         },
                         "balloon": {

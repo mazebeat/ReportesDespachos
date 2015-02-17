@@ -63,14 +63,14 @@
 								@foreach($sql as $key => $value)
 									<tr>
 										<td>{{ $value->name }}</td>
-										<td class="text-right">{{ $value->tempFailure }}</td>
-										<td class="text-right">{{ $value->contentFailure }}</td>
-										<td class="text-right">{{ $value->permFailure }}</td>
-										<td class="text-right">{{ $value->unkFailure }}</td>
-										<td class="text-right">{{ $value->multreplied }}</td>
-										<td class="text-right">{{ $value->opened }}</td>
-										<td class="text-right">{{ $value->outOfOffice }}</td>
-										<td class="text-right">{{ $value->total }}</td>
+										<td>{{ $value->tempFailure }}</td>
+										<td>{{ $value->contentFailure }}</td>
+										<td>{{ $value->permFailure }}</td>
+										<td>{{ $value->unkFailure }}</td>
+										<td>{{ $value->multreplied }}</td>
+										<td>{{ $value->opened }}</td>
+										<td>{{ $value->outOfOffice }}</td>
+										<td>{{ $value->total }}</td>
 									</tr>
 								@endforeach
 								</tbody>
@@ -92,7 +92,6 @@
 					</div>
 				@endif
 			</div>
-
 		</div>
 	</div>
 @endsection
@@ -110,10 +109,6 @@
 
 		.summary td {
 			font-weight: bold;
-		}
-
-		.summary td:not(:first-child) {
-			text-align: right;
 		}
 	</style>
 @endsection
