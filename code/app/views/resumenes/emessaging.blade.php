@@ -21,7 +21,7 @@
 						<div class="form-group col-xs-4 col-md-2">
 							{{ Form::label('negocio', 'Tipo/Negocio (*)', array('class' => 'control-label ')) }}
 							{{--                            {{ Form::select('negocio', array('' => '', 'Envio_DespachoFija' => 'Envio Despacho Fija',  'Envio_DespachoMovil' => 'Envio Despacho Movil', 'No-Ciclo' => 'No-Ciclo', 'Re-Envios' => 'Re-Envios', 'Re-Despacho' => 'Re-Despacho' ), Input::old('negocio'), array('class' => 'form-control'))  }}--}}
-							{{ Form::select('negocio', array('' => '', 'Envio_DespachoFija' => 'Envio Despacho Fija',  'Envio_DespachoMovil' => 'Envio Despacho Movil', 'NoCiclo' => 'No-Ciclo', 'Re-Envios' => 'Reenvios', 'Redespacho' => 'Re-Despacho' ), Input::old('negocio'), array('class' => 'form-control'))  }}
+							{{ Form::select('negocio', array('' => '', 'Envio_DespachoFija' => 'Envio Despacho Fija',  'Envio_DespachoMovil' => 'Envio Despacho Movil', 'NoCiclo' => 'No-Ciclo', 'Reenvios' => 'Re-Envios', 'Redespacho' => 'Re-Despacho' ), Input::old('negocio'), array('class' => 'form-control'))  }}
 							<small class="help-block">{{ $errors->first('negocio') }}</small>
 						</div>
 						<div class="custom-date-range" data-date-format="dd/mm/yyyy">

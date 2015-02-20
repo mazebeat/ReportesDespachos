@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="ReportesDepachos/10.185.30.243" uuid="3619273e-4d09-4e27-8c21-b6d253d3f3f4">
+    <data-source name="ReportesDepachos/10.185.54.119" uuid="3619273e-4d09-4e27-8c21-b6d253d3f3f4">
+      <secret-storage>master_key</secret-storage>
+      <user-name>emessuser</user-name>
+      <schema-pattern>ReportesDespachos.*</schema-pattern>
+      <default-schemas>ReportesDespachos.*</default-schemas>
+    </data-source>
+    <data-source name="ReportesDepachos/10.185.54.119 [2]" uuid="6ec60cc5-1d59-4459-9a6f-fa7da2b8209e">
       <secret-storage>master_key</secret-storage>
       <user-name>emessuser</user-name>
       <schema-pattern>ReportesDespachos.*</schema-pattern>

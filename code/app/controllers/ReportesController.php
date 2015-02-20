@@ -86,32 +86,32 @@ class ReportesController extends \ApiController
 					$negocio = 'FIJA';
 					$spname  = 'ReportesDespachos.dbo.ObtenerDetalle_ex1';
 					$sql     = app_path('database/Generadocumento' . 'ObtenerDetalle_ex1.sql');
-					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -u -v negocio="' . $negocio . '" ciclo="' . $ciclo . '" mes="' . $fecha->month . '" ano="' . $fecha->year . '" spname=' . $spname;
+					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s";" -f 65001 -v negocio="' . $negocio . '" ciclo="' . $ciclo . '" mes="' . $fecha->month . '" ano="' . $fecha->year . '" spname=' . $spname;
 					break;
 				case 'despacho movil':
 					$negocio = 'MOVIL';
 					$spname  = 'ReportesDespachos.dbo.ObtenerDetalle_ex1';
 					$sql     = app_path('database/Generadocumento' . 'ObtenerDetalle_ex1.sql');
 					$ciclo   = Input::get('ciclo') . explode('-', $fecha)[1] . substr(explode('-', $fecha)[0], -2);
-					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -u -v negocio="' . $negocio . '" ciclo="' . $ciclo . '" mes="' . $fecha->month . '" ano="' . $fecha->year . '" spname=' . $spname;
+					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s";" -f 65001 -v negocio="' . $negocio . '" ciclo="' . $ciclo . '" mes="' . $fecha->month . '" ano="' . $fecha->year . '" spname=' . $spname;
 					break;
 				case 're-despacho':
 					$negocio = 'FIJA';
 					$spname  = 'ReportesDespachos.dbo.ObtenerDetalleRedespacho_ex1';
 					$sql     = app_path('database/Generadocumento' . 'ObtenerDetalleRedespacho_ex1.sql');
-					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -u -v fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
+					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s";" -f 65001 -v fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
 					break;
 				case 're-envio fija':
 					$negocio = '1';
 					$spname  = 'ReportesDespachos.dbo.DetalleReenvios_ex1';
 					$sql     = app_path('database/Generadocumento' . 'DetalleReenvios_ex1.sql');
-					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -u -v negocio="' . $negocio . '" fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
+					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s";" -f 65001 -v negocio="' . $negocio . '" fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
 					break;
 				case 're-envio movil':
 					$negocio = '2';
 					$spname  = 'ReportesDespachos.dbo.DetalleReenvios_ex1';
 					$sql     = app_path('database/Generadocumento' . 'DetalleReenvios_ex1.sql');
-					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s"," -u -v negocio="' . $negocio . '" fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
+					$cmd     = 'sqlcmd -S ' . $instancia . ' -i "' . $sql . '" -o "' . $fileLocation . '" -W -s";" -f 65001 -v negocio="' . $negocio . '" fechaini="' . $fecini . '" fechafin="' . $fecfin . '" spname=' . $spname;
 					break;
 			}
 			$cmd = $this->store_query_cache($name, $cmd, 5, false);

@@ -67,7 +67,7 @@ class ApiController extends \BaseController
 	 *
 	 * @return mixed
 	 */
-	public function store_query_cache($name, $query, $minutes = 5, $sqlRequest = true)
+	public function store_query_cache($name, $query, $minutes = 1, $sqlRequest = true)
 	{
 		if ($sqlRequest) {
 			$sql = DB::select($query);
@@ -77,8 +77,8 @@ class ApiController extends \BaseController
 		}
 
 		//		Cache::tags(array('sqlUser_' . Auth::user()->idUsuario))->put($name, $sql, $minutes);
-		Cache::put($name, $sql, $minutes);
 		$minutes = Carbon::now()->addMinutes($minutes);
+		Cache::put($name, $sql, $minutes);
 		unset($minutes);
 
 		return $sql;

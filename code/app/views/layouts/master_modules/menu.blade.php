@@ -19,7 +19,7 @@
 						<b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="{{ URL::to('admin/resumen/despachos') }}">Resumen Despacho</a></li>
-						<li><a href="{{ URL::to('admin/resumen/emessaging') }}">Resumen Emessaging</a></li>
+						<!-- <li><a href="{{ URL::to('admin/resumen/emessaging') }}">Resumen Emessaging</a></li> -->
 					</ul>
 				</li>
 				<li class="dropdown {{ HTML::activeState(array('admin/busquedas/individual')) }}">

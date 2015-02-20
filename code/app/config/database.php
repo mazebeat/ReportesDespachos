@@ -76,6 +76,7 @@ return array(
 
 		'sqlsrv' => array(
 			'driver'   => 'sqlsrv',
+			// 'host'     => '10.185.30.243\INST1',
 			'host'     => '10.185.54.119\INST1',
 			'database' => 'ReportesDespachos',
 			'username' => 'emessuser',
