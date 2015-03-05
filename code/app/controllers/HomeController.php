@@ -52,7 +52,7 @@ class HomeController extends \ApiController
 
 	public function logout()
 	{
-		File::cleanDirectory(public_path() . '/reportes/' . Auth::user()->idUsuario);
+		File::cleanDirectory(public_path() . DIRECTORY_SEPARATOR . 'reportes' . DIRECTORY_SEPARATOR . Auth::user()->idUsuario);
 		//		Cache::tags('sqlUser_' . Auth::user()->idUsuario)->flush();
 		Auth::logout();
 
